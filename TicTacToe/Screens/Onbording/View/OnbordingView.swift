@@ -15,9 +15,8 @@ struct OnbordingView: View {
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            
-                        }) {
+                        NavigationLink(destination: HowToPlayView())
+                        {
                             Constants.Icons.question
                                 .resizable()
                                 .frame(width: 36, height: 36)

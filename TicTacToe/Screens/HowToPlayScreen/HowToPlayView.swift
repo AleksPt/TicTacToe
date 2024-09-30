@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct InlineMod: ViewModifier {
+    @Environment(\.presentationMode) var presentationMode
     
     func body(content: Content) -> some View {
         content
@@ -18,7 +19,8 @@ struct InlineMod: ViewModifier {
                 }
                 
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button {  // go to onboarding view
+                    Button {
+                        presentationMode.wrappedValue.dismiss()
                     } label: {
                         Image("backIcon")
                     }
@@ -67,6 +69,7 @@ struct HowToPlayView: View {
                 }
                 .padding()
             }
+            .navigationBarBackButtonHidden(true)
             .setToolBar() // проверить будет ли закрываться навигейшн автоматически
         }
     }
