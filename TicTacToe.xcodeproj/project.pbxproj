@@ -22,6 +22,7 @@
 		FA4B55DF2CAAA2DA0084DC1B /* GameSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B55DE2CAAA2DA0084DC1B /* GameSquareView.swift */; };
 		FA4B55E12CAAA3960084DC1B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B55E02CAAA3960084DC1B /* GameView.swift */; };
 		FA4B55E32CAAA3E20084DC1B /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B55E22CAAA3E20084DC1B /* GameViewModel.swift */; };
+		FA4B55EA2CAB41580084DC1B /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B55E92CAB41580084DC1B /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		FA4B55DE2CAAA2DA0084DC1B /* GameSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSquareView.swift; sourceTree = "<group>"; };
 		FA4B55E02CAAA3960084DC1B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		FA4B55E22CAAA3E20084DC1B /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		FA4B55E92CAB41580084DC1B /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			children = (
 				FA4B55E22CAAA3E20084DC1B /* GameViewModel.swift */,
 				FA4B55E02CAAA3960084DC1B /* GameView.swift */,
+				FA4B55E92CAB41580084DC1B /* HeaderView.swift */,
 				FA4B55DE2CAAA2DA0084DC1B /* GameSquareView.swift */,
 				FA4B55DC2CAAA29F0084DC1B /* PlayerIndicatorView.swift */,
 			);
@@ -255,6 +258,7 @@
 				84B4A19B2CAB04710088BFC6 /* OnbordingViewModel.swift in Sources */,
 				84B4A19C2CAB04710088BFC6 /* OnbordingModel.swift in Sources */,
 				84B4A19D2CAB04710088BFC6 /* OnbordingView.swift in Sources */,
+				FA4B55EA2CAB41580084DC1B /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

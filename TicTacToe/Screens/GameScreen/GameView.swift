@@ -15,18 +15,8 @@ struct GameView: View {
         ZStack {
             Constants.Colors.background
             VStack {
-                HStack {
-                    VStack {
-                        Constants.Skins.xSkin1
-                        Text("You").font(.system(size: 16)).fontWeight(.semibold)
-                    }
-                    Spacer()
-                    VStack {
-                        Constants.Skins.oSkin1
-                        Text("Player Two").font(.system(size: 16)).fontWeight(.semibold)
-                    }
-                }
-                .padding(.horizontal, 55)
+                HeaderView()
+                .padding(.horizontal, 30)
                 .padding(.top, 122)
                 
                 Text("Your turn").font(.system(size: 20).bold())
