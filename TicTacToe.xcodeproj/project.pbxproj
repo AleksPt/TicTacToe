@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6CF14F622CAABEF200B03C44 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF14F612CAABEF200B03C44 /* ResultsView.swift */; };
 		FA4B55CB2CA99F3F0084DC1B /* TicTacToeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B55CA2CA99F3F0084DC1B /* TicTacToeApp.swift */; };
 		FA4B55CD2CA99F3F0084DC1B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B55CC2CA99F3F0084DC1B /* ContentView.swift */; };
 		FA4B55CF2CA99F420084DC1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA4B55CE2CA99F420084DC1B /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6CF14F612CAABEF200B03C44 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		FA4B55C72CA99F3F0084DC1B /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA4B55CA2CA99F3F0084DC1B /* TicTacToeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeApp.swift; sourceTree = "<group>"; };
 		FA4B55CC2CA99F3F0084DC1B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			children = (
 				FA4B55CA2CA99F3F0084DC1B /* TicTacToeApp.swift */,
 				FA4B55CC2CA99F3F0084DC1B /* ContentView.swift */,
+				6CF14F612CAABEF200B03C44 /* ResultsView.swift */,
 				FA4B55D82CA9A4C20084DC1B /* Constants.swift */,
 				FA4B55CE2CA99F420084DC1B /* Assets.xcassets */,
 				FA4B55D02CA99F420084DC1B /* Preview Content */,
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA4B55CD2CA99F3F0084DC1B /* ContentView.swift in Sources */,
+				6CF14F622CAABEF200B03C44 /* ResultsView.swift in Sources */,
 				FA4B55CB2CA99F3F0084DC1B /* TicTacToeApp.swift in Sources */,
 				FA4B55D92CA9A4C20084DC1B /* Constants.swift in Sources */,
 			);
