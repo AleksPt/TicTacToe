@@ -9,12 +9,14 @@ import SwiftUI
 
 final class GameViewModel: ObservableObject {
     enum StatusGame {
-        case win, lose, draw
+        case win, winPlayerTwo, lose, draw
         
         var title: String {
             switch self {
             case .win:
-                "Your win!"
+                "Player One Win!"
+            case .winPlayerTwo:
+                "Player Two Win!"
             case .lose:
                 "Your Lose!"
             case .draw:
@@ -24,7 +26,7 @@ final class GameViewModel: ObservableObject {
         
         var image: Image {
             switch self {
-            case .win:
+            case .win, .winPlayerTwo:
                 Constants.Icons.win
             case .lose:
                 Constants.Icons.lose
@@ -44,17 +46,19 @@ final class GameViewModel: ObservableObject {
     @Published var isGameboardDisabled = false
     @Published var statusGame: StatusGame?
     @Published var isFinishedGame = false
+    private var gameWithComputer = true
+    private var currentPlayer: Player = .human
     private var changingIndex: Int = -1
     
     func processPlayerMove(for position: Int) {
         if isSquareOccupied(in: moves, index: position) { return }
         changingIndex = position
         
-        moves[position] = Move(player: .human, boardIndex: position)
+        moves[position] = Move(player: currentPlayer, boardIndex: position)
         
-        if checkWinCondition(for: .human, in: moves) {
+        if checkWinCondition(for: currentPlayer, in: moves) {
             // TODO:
-            statusGame = .win
+            statusGame = currentPlayer == .human ? .win : .winPlayerTwo
             finishedGame()
             return
         }
@@ -66,16 +70,22 @@ final class GameViewModel: ObservableObject {
             return
         }
         
+        guard gameWithComputer else {
+            currentPlayer = currentPlayer == .human ? .anotherHuman : .human
+            return
+        }
+        
         isGameboardDisabled = true
+        currentPlayer = .computer
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)  { [weak self] in
             guard let self else { return }
             let computerMovePosition = determineComputerMovePosition(in: moves)
             changingIndex = computerMovePosition
             
-            moves[computerMovePosition] = Move(player: .computer, boardIndex: computerMovePosition)
+            moves[computerMovePosition] = Move(player: currentPlayer, boardIndex: computerMovePosition)
             
-            if checkWinCondition(for: .computer, in: moves) {
+            if checkWinCondition(for: currentPlayer, in: moves) {
                 // TODO:
                 statusGame = .lose
                 finishedGame()
@@ -90,6 +100,7 @@ final class GameViewModel: ObservableObject {
             }
             
             isGameboardDisabled = false
+            currentPlayer = .human
         }
     }
     
@@ -156,17 +167,17 @@ final class GameViewModel: ObservableObject {
     private func checkForDraw(in moves: [Move?]) -> Bool {
         return moves.compactMap {$0}.count == 9
     }
-    
-    func resetGame() {
-        moves = Array(repeating: nil, count: 9)
-        isGameboardDisabled = false
-        statusGame = nil
-    }
-    
+        
     private func finishedGame() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.isFinishedGame = true
         }
     }
     
+    func resetGame() {
+        moves = Array(repeating: nil, count: 9)
+        isGameboardDisabled = false
+        statusGame = nil
+        currentPlayer = .human
+    }
 }

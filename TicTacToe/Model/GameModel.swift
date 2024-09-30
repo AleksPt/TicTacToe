@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Player {
-    case human,computer
+    case human, anotherHuman, computer
 }
 
 struct Move {
