@@ -66,6 +66,9 @@ struct GameView: View {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        didDismiss()
+                    }
                 }, label: {
                     Constants.Icons.back
                 })

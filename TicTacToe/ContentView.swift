@@ -22,6 +22,7 @@ struct ContentView: View {
                     .environmentObject(GameViewModel(gameWithComputer: false))
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
