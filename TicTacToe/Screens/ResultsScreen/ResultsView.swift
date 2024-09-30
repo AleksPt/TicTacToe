@@ -33,8 +33,10 @@ struct ResultViewButton: View {
 }
 
 struct ResultView: View {
-    var text: String // binding ?
-    var image: String // or Image
+    @Environment(\.dismiss) var dismiss
+    
+    let text: String
+    let image: Image
     
     var body: some View {
         
@@ -45,7 +47,7 @@ struct ResultView: View {
         
         ZStack{
             Color.appBlue
-            Image(image)
+            image
         }.frame(width: 228, height: 228)
             .clipShape(Circle())
         
@@ -58,14 +60,15 @@ struct ResultView: View {
     }
     
     func returnToOnbourding() {
+        // TODO: 
         // back to onboarding view
     }
     
     func playAgain() {
-        // play again/revange
+        dismiss()
     }
 }
 
 #Preview {
-    ResultView(text:"Draw!", image: "drawIcon")
+    ResultView(text: "Win", image: Constants.Icons.win)
 }
