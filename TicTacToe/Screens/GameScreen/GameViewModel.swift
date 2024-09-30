@@ -46,9 +46,13 @@ final class GameViewModel: ObservableObject {
     @Published var isGameboardDisabled = false
     @Published var statusGame: StatusGame?
     @Published var isFinishedGame = false
-    private var gameWithComputer = true
     private var currentPlayer: Player = .human
     private var changingIndex: Int = -1
+    var gameWithComputer: Bool
+    
+    init(gameWithComputer: Bool) {
+        self.gameWithComputer = gameWithComputer
+    }
     
     func processPlayerMove(for position: Int) {
         if isSquareOccupied(in: moves, index: position) { return }

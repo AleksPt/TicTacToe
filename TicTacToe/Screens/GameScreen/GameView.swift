@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameView: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject private var viewModel = GameViewModel()
+    @EnvironmentObject private var viewModel: GameViewModel
     
     var body: some View {
         ZStack {
@@ -44,7 +44,7 @@ struct GameView: View {
                                 ForEach(0..<9) { item in
                                     ZStack {
                                         GameSquareView(proxy: geometry)
-                                        PlayerIndicator(image: viewModel.moves[item]?.indicator ?? Image(""))
+                                        PlayerIndicator(image: viewModel.moves[item]?.indicator)
                                     }
                                     .onTapGesture {
                                         viewModel.processPlayerMove(for: item)
@@ -80,12 +80,10 @@ struct GameView: View {
     }
     
     private func didDismiss() {
-        withAnimation {
-            viewModel.resetGame()
-        }
+        viewModel.resetGame()
     }
 }
 
-#Preview {
-    GameView()
-}
+//#Preview {
+//    GameView()
+//}
