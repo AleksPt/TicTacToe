@@ -23,6 +23,7 @@
 		FA4B55E12CAAA3960084DC1B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B55E02CAAA3960084DC1B /* GameView.swift */; };
 		FA4B55E32CAAA3E20084DC1B /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B55E22CAAA3E20084DC1B /* GameViewModel.swift */; };
 		FA4B55EA2CAB41580084DC1B /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B55E92CAB41580084DC1B /* HeaderView.swift */; };
+		FA7A7B5A2CAC8DFF00B1B6F0 /* LinePointsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A7B592CAC8DFF00B1B6F0 /* LinePointsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		FA4B55E02CAAA3960084DC1B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		FA4B55E22CAAA3E20084DC1B /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		FA4B55E92CAB41580084DC1B /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		FA7A7B592CAC8DFF00B1B6F0 /* LinePointsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinePointsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				FA4B55DA2CAAA2680084DC1B /* GameModel.swift */,
+				FA7A7B592CAC8DFF00B1B6F0 /* LinePointsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				FA4B55E32CAAA3E20084DC1B /* GameViewModel.swift in Sources */,
 				FA4B55DD2CAAA29F0084DC1B /* PlayerIndicatorView.swift in Sources */,
 				FA4B55D92CA9A4C20084DC1B /* Constants.swift in Sources */,
+				FA7A7B5A2CAC8DFF00B1B6F0 /* LinePointsModel.swift in Sources */,
 				FA4B55E12CAAA3960084DC1B /* GameView.swift in Sources */,
 				84B4A19B2CAB04710088BFC6 /* OnbordingViewModel.swift in Sources */,
 				84B4A19C2CAB04710088BFC6 /* OnbordingModel.swift in Sources */,

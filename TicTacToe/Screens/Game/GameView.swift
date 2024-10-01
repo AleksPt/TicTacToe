@@ -7,10 +7,7 @@
 
 import SwiftUI
 
-struct LinePoints {
-    var x: (CGFloat, CGFloat)?
-    var y: (CGFloat, CGFloat)?
-}
+
 
 struct GameView: View {
     @Environment(\.presentationMode) var presentationMode
