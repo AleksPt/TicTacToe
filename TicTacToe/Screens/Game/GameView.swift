@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+struct LinePoints {
+    var x: (CGFloat, CGFloat)?
+    var y: (CGFloat, CGFloat)?
+}
+
 struct GameView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject private var viewModel: GameViewModel
@@ -36,6 +41,8 @@ struct GameView: View {
                         .shadow(color: Constants.Colors.blue.opacity(0.3), radius: 15)
                     
                     GeometryReader { geometry in
+                        let width = geometry.size.width
+                        let point = viewModel.getPointsForLine(width: width)
                         ZStack {
                             LazyVGrid(columns: viewModel.columns, spacing: 20) {
                                 ForEach(0..<9) { item in
@@ -50,6 +57,14 @@ struct GameView: View {
                             }
                         }
                         .disabled(viewModel.isGameboardDisabled)
+                        
+                        if (viewModel.winPattern != nil) {
+                            Path { path in
+                                path.move(to: CGPoint(x: point.x!.0, y: point.x!.1))
+                                path.addLine(to: CGPoint(x: point.y!.0, y: point.y!.1))
+                            }
+                            .stroke(.pink, lineWidth: 5)
+                        }
                     }
                     .padding(20)
                 }
@@ -84,6 +99,7 @@ struct GameView: View {
     }
 }
 
-//#Preview {
-//    GameView()
-//}
+#Preview {
+    GameView()
+        .environmentObject(GameViewModel(gameWithComputer: true))
+}
