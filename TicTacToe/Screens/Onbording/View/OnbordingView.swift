@@ -24,9 +24,9 @@ struct OnbordingView: View {
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            
-                        }) {
+                        NavigationLink {
+                            SettingsGameView()
+                        } label: {
                             Constants.Icons.settings
                                 .resizable()
                                 .frame(width: 36, height: 36)

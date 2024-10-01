@@ -55,7 +55,7 @@ extension View {
 }
 
 struct SettingsGameView: View {
-    
+    @Environment(\.presentationMode) var presentationMode
     @State private var gameTime = true // включена игра на время
     
     @State private var durationStandBy = false
@@ -74,7 +74,6 @@ struct SettingsGameView: View {
                    GridItem(.fixed(152)) ] // устанавливает ширину ячеек в грид
     
     var body: some View {
-        NavigationView {
             ZStack {
                 Color.appBackground
                     .ignoresSafeArea()
@@ -103,7 +102,7 @@ struct SettingsGameView: View {
                                             .frame(width: 308)
                                                                                
                                         VStack() {
-                                            DisclosureGroup( isExpanded: $durationStandBy) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameTime) как понравится команде так и оставим.
+                                            DisclosureGroup( isExpanded: $gameTime) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameTime) как понравится команде так и оставим.
                                                 VStack( spacing: 0) {
                                                     
                                                     Divider()
@@ -181,14 +180,16 @@ struct SettingsGameView: View {
                     .padding(.top,40)
                 } // ScrollView
             } // ZStack Color fill
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {}) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
                         Image("backIcon")
                     }
                 }
             }
-        }
     }
     
     private func chooseTimeLimit(for toogle: Bool) {
