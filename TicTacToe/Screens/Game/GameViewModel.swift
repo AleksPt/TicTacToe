@@ -168,7 +168,6 @@ final class GameViewModel: ObservableObject {
     
     private func checkWinCondition(for player: Player, in moves: [Move?]) -> Bool {
         let winPatterns: Set<Set<Int>> = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
-        
         let playerMoves = moves.compactMap { $0 }.filter { $0.player == player }
         let playerPositions = Set(playerMoves.map { $0.boardIndex })
         for pattern in winPatterns where pattern.isSubset(of: playerPositions) {
@@ -177,7 +176,12 @@ final class GameViewModel: ObservableObject {
             let resultString = stringArray.joined(separator: ",")
             WinPattern.allCases.forEach {
                 if $0.rawValue == resultString {
-                    winPattern = $0
+                    let temp = $0
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
+                        withAnimation {
+                            self?.winPattern = temp                            
+                        }
+                    }
                 }
             }
             return true
@@ -191,7 +195,7 @@ final class GameViewModel: ObservableObject {
     }
         
     private func finishedGame() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) { [weak self] in
             self?.isFinishedGame = true
         }
     }
