@@ -19,9 +19,16 @@ struct GameView: View {
                 .padding(.horizontal, 30)
                 .padding(.top, 122)
                 
-                Text("Your turn").font(.system(size: 20).bold())
-                    .padding(.bottom, 44)
-                    .padding(.top, 55)
+                HStack {
+                    PlayerIndicator(image: viewModel.currentPlayer == .human
+                                    ? Constants.Skins.xSkin1
+                                    : Constants.Skins.oSkin1)
+                    Text(viewModel.currentPlayer == .human ? "Your turn" : "Player Two turn")
+                        .font(.system(size: 20).bold())
+                        .padding(.bottom, 44)
+                        .padding(.top, 55)
+                        .offset(y: -4)
+                }
                 
                 ZStack {
                     RoundedRectangle(cornerRadius: 30)

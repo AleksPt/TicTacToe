@@ -46,7 +46,7 @@ final class GameViewModel: ObservableObject {
     @Published var isGameboardDisabled = false
     @Published var statusGame: StatusGame?
     @Published var isFinishedGame = false
-    private var currentPlayer: Player = .human
+    @Published var currentPlayer: Player = .human
     private var changingIndex: Int = -1
     var gameWithComputer: Bool
     
