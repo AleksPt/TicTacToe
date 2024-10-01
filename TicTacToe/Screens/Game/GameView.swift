@@ -21,53 +21,10 @@ struct GameView: View {
                 .padding(.horizontal, 30)
                 .padding(.top, 122)
                 
-                HStack {
-                    PlayerIndicator(image: viewModel.currentPlayer == .human
-                                    ? Constants.Skins.xSkin1
-                                    : Constants.Skins.oSkin1)
-                    Text(viewModel.currentPlayer == .human 
-                         ? viewModel.gameWithComputer ? "Your turn" : "Player One turn"
-                         : viewModel.currentPlayer == .computer ? "Computer turn" : "Player Two turn")
-                        .font(.system(size: 20).bold())
-                        .padding(.bottom, 44)
-                        .padding(.top, 55)
-                        .offset(y: -4)
-                }
+                TurnStatus
                 
-                ZStack {
-                    RoundedRectangle(cornerRadius: 30)
-                        .fill(.white)
-                        .shadow(color: Constants.Colors.blue.opacity(0.3), radius: 15)
-                    
-                    GeometryReader { geometry in
-                        let width = geometry.size.width
-                        let point = viewModel.getPointsForLine(width: width)
-                        ZStack {
-                            LazyVGrid(columns: viewModel.columns, spacing: 20) {
-                                ForEach(0..<9) { item in
-                                    ZStack {
-                                        GameSquareView(proxy: geometry)
-                                        PlayerIndicator(image: viewModel.moves[item]?.indicator)
-                                    }
-                                    .onTapGesture {
-                                        viewModel.processPlayerMove(for: item)
-                                    }
-                                }
-                            }
-                        }
-                        .disabled(viewModel.isGameboardDisabled)
-                        
-                        if (viewModel.winPattern != nil) {
-                            Path { path in
-                                path.move(to: CGPoint(x: point.x!.0, y: point.x!.1))
-                                path.addLine(to: CGPoint(x: point.y!.0, y: point.y!.1))
-                            }
-                            .stroke(.pink, lineWidth: 5)
-                        }
-                    }
-                    .padding(20)
-                }
-                .frame(width: UIScreen.main.bounds.width - 88, height: UIScreen.main.bounds.width - 88)
+                GameSquare
+                
                 Spacer()
             }
         }
@@ -85,12 +42,68 @@ struct GameView: View {
                 })
             }
         }
-        .fullScreenCover(isPresented: $viewModel.isFinishedGame, onDismiss: didDismiss) {
+        .fullScreenCover(
+            isPresented: $viewModel.isFinishedGame,
+            onDismiss: didDismiss
+        ) {
             ResultView(
                 text: viewModel.statusGame?.title ?? "",
                 image: viewModel.statusGame?.image ?? Constants.Icons.win
             )
         }
+    }
+    
+    var TurnStatus: some View {
+        HStack {
+            PlayerIndicator(image: viewModel.currentPlayer == .human
+                            ? Constants.Skins.xSkin1
+                            : Constants.Skins.oSkin1)
+            Text(viewModel.currentPlayer == .human
+                 ? viewModel.gameWithComputer ? "Your turn" : "Player One turn"
+                 : viewModel.currentPlayer == .computer 
+                 ? "Computer turn" : "Player Two turn")
+                .font(.system(size: 20).bold())
+                .padding(.bottom, 44)
+                .padding(.top, 55)
+                .offset(y: -4)
+        }
+    }
+    
+    var GameSquare: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 30)
+                .fill(.white)
+                .shadow(color: Constants.Colors.blue.opacity(0.3), radius: 15)
+            
+            GeometryReader { geometry in
+                let width = geometry.size.width
+                let point = viewModel.getPointsForLine(width: width)
+                ZStack {
+                    LazyVGrid(columns: viewModel.columns, spacing: 20) {
+                        ForEach(0..<9) { item in
+                            ZStack {
+                                GameSquareView(proxy: geometry)
+                                PlayerIndicator(image: viewModel.moves[item]?.indicator)
+                            }
+                            .onTapGesture {
+                                viewModel.processPlayerMove(for: item)
+                            }
+                        }
+                    }
+                }
+                .disabled(viewModel.isGameboardDisabled)
+                
+                if (viewModel.winPattern != nil) {
+                    Path { path in
+                        path.move(to: CGPoint(x: point.x!.0, y: point.x!.1))
+                        path.addLine(to: CGPoint(x: point.y!.0, y: point.y!.1))
+                    }
+                    .stroke(.pink, lineWidth: 5)
+                }
+            }
+            .padding(20)
+        }
+        .frame(width: UIScreen.main.bounds.width - 88, height: UIScreen.main.bounds.width - 88)
     }
     
     private func didDismiss() {
