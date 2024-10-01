@@ -9,12 +9,14 @@ import SwiftUI
 
 struct PlayerIndicator: View {
     
-    var image: Image
+    var image: Image?
     
     var body: some View {
-        image
+        if image != nil {
+            image!
             .resizable()
             .frame(width: 40, height: 40)
             .foregroundColor(.white)
+        }
     }
 }

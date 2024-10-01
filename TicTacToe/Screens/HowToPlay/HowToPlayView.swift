@@ -43,7 +43,6 @@ struct HowToPlayView: View {
                            "The first player to align three of their markers horizontally, vertically, or diagonally wins. Examples of Winning Combinations:\nHorizontal: Squares 1, 2, 3 or 4,5,6 or 7,8,9\nVertical: Squares 1, 4, 7 or 2, 5,8 ог 3,6,9\nDiagonal: Squares 1, 5, 9 or 3, 5,7."]
     
     var body: some View {
-        NavigationStack {
             ScrollView {
                 VStack {
                     ForEach(0..<4){ rule in
@@ -71,7 +70,6 @@ struct HowToPlayView: View {
             }
             .navigationBarBackButtonHidden(true)
             .setToolBar() // проверить будет ли закрываться навигейшн автоматически
-        }
     }
 }
 

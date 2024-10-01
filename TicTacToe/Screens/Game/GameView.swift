@@ -9,29 +9,26 @@ import SwiftUI
 
 struct GameView: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject private var viewModel = GameViewModel()
+    @EnvironmentObject private var viewModel: GameViewModel
     
     var body: some View {
         ZStack {
             Constants.Colors.background
             VStack {
-                HStack {
-                    VStack {
-                        Constants.Skins.xSkin1
-                        Text("You").font(.system(size: 16)).fontWeight(.semibold)
-                    }
-                    Spacer()
-                    VStack {
-                        Constants.Skins.oSkin1
-                        Text("Player Two").font(.system(size: 16)).fontWeight(.semibold)
-                    }
-                }
-                .padding(.horizontal, 55)
+                HeaderView()
+                .padding(.horizontal, 30)
                 .padding(.top, 122)
                 
-                Text("Your turn").font(.system(size: 20).bold())
-                    .padding(.bottom, 44)
-                    .padding(.top, 55)
+                HStack {
+                    PlayerIndicator(image: viewModel.currentPlayer == .human
+                                    ? Constants.Skins.xSkin1
+                                    : Constants.Skins.oSkin1)
+                    Text(viewModel.currentPlayer == .human ? "Your turn" : "Player Two turn")
+                        .font(.system(size: 20).bold())
+                        .padding(.bottom, 44)
+                        .padding(.top, 55)
+                        .offset(y: -4)
+                }
                 
                 ZStack {
                     RoundedRectangle(cornerRadius: 30)
@@ -44,7 +41,7 @@ struct GameView: View {
                                 ForEach(0..<9) { item in
                                     ZStack {
                                         GameSquareView(proxy: geometry)
-                                        PlayerIndicator(image: viewModel.moves[item]?.indicator ?? Image(""))
+                                        PlayerIndicator(image: viewModel.moves[item]?.indicator)
                                     }
                                     .onTapGesture {
                                         viewModel.processPlayerMove(for: item)
@@ -66,6 +63,9 @@ struct GameView: View {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        didDismiss()
+                    }
                 }, label: {
                     Constants.Icons.back
                 })
@@ -80,12 +80,10 @@ struct GameView: View {
     }
     
     private func didDismiss() {
-        withAnimation {
-            viewModel.resetGame()
-        }
+        viewModel.resetGame()
     }
 }
 
-#Preview {
-    GameView()
-}
+//#Preview {
+//    GameView()
+//}

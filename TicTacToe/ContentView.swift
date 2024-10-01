@@ -8,10 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
-        NavigationStack {
-            OnbordingView()
+        NavigationView {
+            VStack {
+                NavigationLink("1 Player") {
+                    GameView()
+                        .environmentObject(GameViewModel(gameWithComputer: true))
+                }
+                
+                NavigationLink("2 Player") {
+                    GameView()
+                        .environmentObject(GameViewModel(gameWithComputer: false))
+                }
+            }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
