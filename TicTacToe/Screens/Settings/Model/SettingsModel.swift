@@ -9,7 +9,7 @@ import SwiftUI
 
 enum TimerTime: Int {
     case thirty = 30
-    case sexty = 60
+    case sixty = 60
     case oneHundredTwenty = 120
 }
 
