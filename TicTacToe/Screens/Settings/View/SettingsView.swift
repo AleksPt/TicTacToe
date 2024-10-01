@@ -170,7 +170,10 @@ struct SettingsGameView: View {
                     VStack() {
                         LazyVGrid(columns: layout, spacing: 20) {
                             ForEach(0..<6){ number in
-                                Button(action: { currentIcons = number } ) {
+                                Button(action: {
+                                    currentIcons = number
+                                    print("\(number)")
+                                } ) {
                                     PickShape(picked: currentIcons == number ? true : false, playerIcons: icons[number])
                                 }
                             }

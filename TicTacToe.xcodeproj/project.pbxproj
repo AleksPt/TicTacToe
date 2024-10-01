@@ -62,6 +62,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84110FBF2CACA0FA004D61B8 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				84110FC22CACA11B004D61B8 /* Model */,
+				84110FC12CACA116004D61B8 /* View */,
+				84110FC02CACA108004D61B8 /* ViewModel */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		84110FC02CACA108004D61B8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				84110FBB2CAC69FB004D61B8 /* SettingsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		84110FC12CACA116004D61B8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6C07C5962CAC4DAA00E9710E /* SettingsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		84110FC22CACA11B004D61B8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				84110FBD2CAC77F2004D61B8 /* SettingsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		84B4A1952CAB04710088BFC6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,9 +156,6 @@
 				FA4B55D82CA9A4C20084DC1B /* Constants.swift */,
 				FA4B55CE2CA99F420084DC1B /* Assets.xcassets */,
 				FA4B55D02CA99F420084DC1B /* Preview Content */,
-				6C07C5962CAC4DAA00E9710E /* SettingsView.swift */,
-				84110FBB2CAC69FB004D61B8 /* SettingsViewModel.swift */,
-				84110FBD2CAC77F2004D61B8 /* SettingsModel.swift */,
 			);
 			path = TicTacToe;
 			sourceTree = "<group>";
@@ -174,6 +205,7 @@
 		FA4B55E82CAAE5360084DC1B /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				84110FBF2CACA0FA004D61B8 /* Settings */,
 				84B4A19A2CAB04710088BFC6 /* Onbording */,
 				FA4B55E62CAAE5120084DC1B /* HowToPlay */,
 				FA4B55E52CAAD6740084DC1B /* Game */,
