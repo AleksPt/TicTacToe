@@ -28,7 +28,9 @@ struct GameView: View {
                     PlayerIndicator(image: viewModel.currentPlayer == .human
                                     ? Constants.Skins.xSkin1
                                     : Constants.Skins.oSkin1)
-                    Text(viewModel.currentPlayer == .human ? "Your turn" : "Player Two turn")
+                    Text(viewModel.currentPlayer == .human 
+                         ? viewModel.gameWithComputer ? "Your turn" : "Player One turn"
+                         : viewModel.currentPlayer == .computer ? "Computer turn" : "Player Two turn")
                         .font(.system(size: 20).bold())
                         .padding(.bottom, 44)
                         .padding(.top, 55)
