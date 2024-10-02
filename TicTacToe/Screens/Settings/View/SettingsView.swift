@@ -84,6 +84,7 @@ struct SettingsGameView: View {
                    GridItem(.fixed(152)) ] // устанавливает ширину ячеек в грид
     
     var body: some View {
+        NavigationView{
             ZStack {
                 Color.appBackground
                     .ignoresSafeArea()
@@ -112,10 +113,10 @@ struct SettingsGameView: View {
                                             RoundedRectangle(cornerRadius: 30)
                                                 .foregroundStyle(Color.appLightBlue)
                                                 .frame(width: 308)
-                                                
+                                            
                                             
                                             VStack() {
-                                                DisclosureGroup( isExpanded: $gameTimeStandBy) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameTime) как понравится команде так и оставим.
+                                                DisclosureGroup( isExpanded: $gameTime) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameTime) как понравится команде так и оставим.
                                                     VStack( spacing: 0) {
                                                         
                                                         Divider()
@@ -179,12 +180,12 @@ struct SettingsGameView: View {
                                                     }
                                                     
                                                 }.accentColor(.clear)
-                                                    
+                                                
                                                 //   .buttonStyle(PlainButtonStyle()).accentColor(.gray).disabled(true)
                                             }
                                         }
                                         .padding(.bottom,20)
-                                            .frame(width: 308)
+                                        .frame(width: 308)
                                     } //if
                                 }//VStack clouse duration
                                 
@@ -200,9 +201,9 @@ struct SettingsGameView: View {
                                         .tint(Color.appBlue)
                                         .padding(20)
                                     }.frame(width:308, height: 69)
-//                                        .padding(20)
+                                    //                                        .padding(20)
                                         .padding(.bottom,20)
-                                        
+                                    
                                     
                                     if gameMusic {
                                         ZStack() {
@@ -211,7 +212,7 @@ struct SettingsGameView: View {
                                                 .frame(width: 308)
                                             
                                             VStack() {
-                                                DisclosureGroup( isExpanded: $gameMusicStandBy) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameMusic) как понравится команде так и оставим.
+                                                DisclosureGroup( isExpanded: $gameMusic) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameMusic) как понравится команде так и оставим.
                                                     VStack( spacing: 0) {
                                                         
                                                         Divider()
@@ -316,11 +317,17 @@ struct SettingsGameView: View {
                         Image("backIcon")
                     }
                 }
+                
+                ToolbarItem(placement: .principal) {
+                    Text("Settings")
+                        .font(.title).fontWeight(.bold)
+                }
             }
+        }
     }
     
     private func chooseTimeLimit(for toogle: Bool) {
-      // onChange в Toogle упростить и вынести в эту ф-ию
+        // onChange в Toogle упростить и вынести в эту ф-ию
     }
     
     private func checkDuration(limits: Bool... )-> Bool {
@@ -331,12 +338,12 @@ struct SettingsGameView: View {
     }
     
     private func checkMusic(musics: Bool...)-> Bool { //или sound, ну хз :)
-      let check = musics.contains(true) ? true : false
-      return check
+        let check = musics.contains(true) ? true : false
+        return check
         //        if musics.contains(true){
-//            return true
-//        }
-//        return false
+        //            return true
+        //        }
+        //        return false
     }
 }
 
