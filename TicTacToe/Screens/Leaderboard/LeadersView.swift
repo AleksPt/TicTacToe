@@ -8,32 +8,52 @@
 import SwiftUI
 
 struct LeadersView: View {
-    var leaders: [Leader]
+    var leaders: [Int]
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            ForEach(0..<leaders.count, id: \.self) { leader in
+            ForEach(0..<leaders.count, id: \.self) { index in
                 HStack {
-                    Image(systemName: "\(leader + 1).circle.fill")
-                        .resizable()
-                        .frame(width: 69, height: 69)
-                        .background(Color.black)
-                        .foregroundStyle(Constants.Colors.lightBlue)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(.white , lineWidth: 2))
+                    ZStack {
+                        Circle()
+                            .fill(index == 0
+                                  ? Constants.Colors.purple
+                                  : Constants.Colors.lightBlue)
+                            .frame(width: 69)
+                        Text((index + 1).description)
+                            .font(.system(size: 20))
+                    }
                     
-                    Text("Best time: \(leaders[leader].time)")
-                        .frame(width: 269, height: 69)
-                        .font(.system(size: 16, weight: .medium))
-                        .background(Constants.Colors.lightBlue)
-                        .foregroundColor(.black)
-                        .cornerRadius(30)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(index == 0
+                                  ? Constants.Colors.purple
+                                  : Constants.Colors.lightBlue)
+                        HStack {
+                            Text(index == 0
+                                 ? "Best time: \(String(describing: timeString(time: leaders[index])))"
+                                 : "Time: \(String(describing: timeString(time: leaders[index])))")
+                                .padding(.leading, 24)
+                            Spacer()
+                        }
+                    }
                 }
+                .padding(.horizontal, 21)
             }
         }
+        .padding(.top, 40)
+        .frame(maxWidth: .infinity)
+        .background(Constants.Colors.background)
+    }
+    
+    private func timeString(time: Int) -> String {
+        let minutes = time / 60
+        let seconds = time % 60
+        let result = String(format: "%01d:%02d", minutes, seconds)
+        return result
     }
 }
 
 #Preview {
-    LeadersView(leaders: [Leader(time: "10:10"), Leader(time: "10:10"), Leader(time: "10:10")])
+    LeadersView(leaders: [111,222,333,444])
 }

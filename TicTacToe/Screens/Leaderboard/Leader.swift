@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Leader {
+struct Leader: Hashable {
     var time: String
 }
