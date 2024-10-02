@@ -8,6 +8,17 @@
 import SwiftUI
 
 final class GameViewModel: ObservableObject {
+    enum WinPattern: String, CaseIterable {
+        case win012 = "0,1,2"
+        case win345 = "3,4,5"
+        case win678 = "6,7,8"
+        case win036 = "0,3,6"
+        case win147 = "1,4,7"
+        case win258 = "2,5,8"
+        case win048 = "0,4,8"
+        case win246 = "2,4,6"
+    }
+        
     enum StatusGame {
         case win, winPlayerTwo, lose, draw
         
@@ -47,6 +58,7 @@ final class GameViewModel: ObservableObject {
     @Published var statusGame: StatusGame?
     @Published var isFinishedGame = false
     @Published var currentPlayer: Player = .human
+    @Published var winPattern: WinPattern?
     private var changingIndex: Int = -1
     var gameWithComputer: Bool
     
@@ -61,14 +73,12 @@ final class GameViewModel: ObservableObject {
         moves[position] = Move(player: currentPlayer, boardIndex: position)
         
         if checkWinCondition(for: currentPlayer, in: moves) {
-            // TODO:
             statusGame = currentPlayer == .human ? .win : .winPlayerTwo
             finishedGame()
             return
         }
         
         if checkForDraw(in: moves) {
-            // TODO:
             statusGame = .draw
             finishedGame()
             return
@@ -90,14 +100,12 @@ final class GameViewModel: ObservableObject {
             moves[computerMovePosition] = Move(player: currentPlayer, boardIndex: computerMovePosition)
             
             if checkWinCondition(for: currentPlayer, in: moves) {
-                // TODO:
                 statusGame = .lose
                 finishedGame()
                 return
             }
             
             if checkForDraw(in: moves) {
-                // TODO:
                 statusGame = .draw
                 finishedGame()
                 return
@@ -160,10 +168,24 @@ final class GameViewModel: ObservableObject {
     
     private func checkWinCondition(for player: Player, in moves: [Move?]) -> Bool {
         let winPatterns: Set<Set<Int>> = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
-        
         let playerMoves = moves.compactMap { $0 }.filter { $0.player == player }
         let playerPositions = Set(playerMoves.map { $0.boardIndex })
-        for pattern in winPatterns where pattern.isSubset(of: playerPositions) { return true }
+        for pattern in winPatterns where pattern.isSubset(of: playerPositions) {
+            let arrayPattern = pattern.sorted()
+            let stringArray = arrayPattern.map { String($0) }
+            let resultString = stringArray.joined(separator: ",")
+            WinPattern.allCases.forEach {
+                if $0.rawValue == resultString {
+                    let temp = $0
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
+                        withAnimation {
+                            self?.winPattern = temp                            
+                        }
+                    }
+                }
+            }
+            return true
+        }
         
         return false
     }
@@ -173,7 +195,7 @@ final class GameViewModel: ObservableObject {
     }
         
     private func finishedGame() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) { [weak self] in
             self?.isFinishedGame = true
         }
     }
@@ -183,5 +205,65 @@ final class GameViewModel: ObservableObject {
         isGameboardDisabled = false
         statusGame = nil
         currentPlayer = .human
+        winPattern = nil
+    }
+    
+    func getPointsForLine(width: CGFloat) -> LinePoints {
+        var points = LinePoints()
+        
+        let firstHorizontalLineStart: (CGFloat, CGFloat) = (x: 0, y: width / 7)
+        let firstHorizontalLineFinish: (CGFloat, CGFloat) = (x: width, y: width / 7)
+        
+        let middleHorizontalLineStart: (CGFloat, CGFloat) = (x: 0, y: width / 2)
+        let middleHorizontalLineFinish: (CGFloat, CGFloat) = (x: width, y: width / 2)
+        
+        let thirdHorizontalLineStart: (CGFloat, CGFloat) = (x: 0, y: width / 1.18)
+        let thirdHorizontalLineFinish: (CGFloat, CGFloat) = (x: width, y: width / 1.18)
+        
+        let bottomLeadingDiagonalLineStart: (CGFloat, CGFloat) = (x: 0, y: width)
+        let topTrailingDiagonalLineFinish: (CGFloat, CGFloat) = (x: width, y: 0)
+        
+        let topLeadingDiagonalLineStart: (CGFloat, CGFloat) = (x: 0, y: -5)
+        let bottomTrailingDiagonalLineFinish: (CGFloat, CGFloat) = (x: width, y: width)
+        
+        let firstVerticalLineStart: (CGFloat, CGFloat) = (x: width / 6.5, y: -5)
+        let firstVerticalLineFinish: (CGFloat, CGFloat) = (x: width / 6.5, y: width)
+        
+        let middleVerticalLineStart: (CGFloat, CGFloat) = (x: width / 2, y: -5)
+        let middleVerticalLineFinish: (CGFloat, CGFloat) = (x: width / 2, y: width)
+        
+        let thirdVerticalLineStart: (CGFloat, CGFloat) = (x: width / 1.18, y: -5)
+        let thirdVerticalLineFinish: (CGFloat, CGFloat) = (x: width / 1.18, y: width)
+        
+        switch winPattern {
+        case .win012:
+            points.x = firstHorizontalLineStart
+            points.y = firstHorizontalLineFinish
+        case .win345:
+            points.x = middleHorizontalLineStart
+            points.y = middleHorizontalLineFinish
+        case .win678:
+            points.x = thirdHorizontalLineStart
+            points.y = thirdHorizontalLineFinish
+        case .win036:
+            points.x = firstVerticalLineStart
+            points.y = firstVerticalLineFinish
+        case .win147:
+            points.x = middleVerticalLineStart
+            points.y = middleVerticalLineFinish
+        case .win258:
+            points.x = thirdVerticalLineStart
+            points.y = thirdVerticalLineFinish
+        case .win048:
+            points.x = topLeadingDiagonalLineStart
+            points.y = bottomTrailingDiagonalLineFinish
+        case .win246:
+            points.x = bottomLeadingDiagonalLineStart
+            points.y = topTrailingDiagonalLineFinish
+        case .none:
+            break
+        }
+        
+        return points
     }
 }

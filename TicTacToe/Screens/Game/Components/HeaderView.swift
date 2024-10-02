@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct HeaderView: View {
+    @EnvironmentObject var viewModel: GameViewModel
+    
     var body: some View {
         HStack {
             ZStack {
                 VStack {
                     Constants.Skins.xSkin1
-                    Text("You").font(.system(size: 16)).fontWeight(.semibold)
+                    Text(viewModel.gameWithComputer ? "You" : "Player One")
+                    .font(.system(size: 16)).fontWeight(.semibold)
                 }
             }
             .frame(width: 103, height: 103)
@@ -25,7 +28,8 @@ struct HeaderView: View {
             ZStack {
                 VStack {
                     Constants.Skins.oSkin1
-                    Text("Player Two").font(.system(size: 16)).fontWeight(.semibold)
+                    Text(viewModel.gameWithComputer ? "Computer" : "Player Two")
+                        .font(.system(size: 16)).fontWeight(.semibold)
                 }
             }
             .frame(width: 103, height: 103)
