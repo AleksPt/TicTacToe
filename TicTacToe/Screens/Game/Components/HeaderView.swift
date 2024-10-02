@@ -9,8 +9,8 @@ import SwiftUI
 
 struct HeaderView: View {
     @EnvironmentObject var viewModel: GameViewModel
-    @StateObject private var settingsViewModel = SettingsViewModel()
-    @StateObject private var timerViewModel = TimerViewModel()
+    @EnvironmentObject var settingsViewModel: SettingsViewModel
+    @EnvironmentObject var timerViewModel: TimerViewModel
     
     var body: some View {
         HStack {

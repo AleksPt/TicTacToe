@@ -10,13 +10,14 @@ import SwiftUI
 struct GameView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject private var viewModel: GameViewModel
-    @StateObject private var timerViewModel = TimerViewModel()
+    @EnvironmentObject private var timerViewModel: TimerViewModel
     
     var body: some View {
         ZStack {
             Constants.Colors.background
             VStack {
                 HeaderView()
+                    .environmentObject(timerViewModel)
                 .padding(.horizontal, 30)
                 .padding(.top, 122)
                 

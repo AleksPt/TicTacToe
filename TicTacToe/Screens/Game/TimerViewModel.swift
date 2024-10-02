@@ -9,7 +9,11 @@ import SwiftUI
 import Combine
 
 class TimerViewModel: ObservableObject {
-    
+    var timeValue: Int? {
+        didSet {
+            time = timeValue
+        }
+    }
     @Published var time: Int?
     var timer: AnyCancellable?
     
@@ -35,6 +39,6 @@ class TimerViewModel: ObservableObject {
     
     func stopTimer() {
         pauseTimer()
-        time = 0
+        time = timeValue
     }
 }

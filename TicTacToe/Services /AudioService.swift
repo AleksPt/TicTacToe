@@ -9,9 +9,9 @@ import AVFoundation
 import SwiftUI
 
 final class AudioService: ObservableObject {
-    @Published var isPlaySound = true {
+    @Published var isPlaySound = false {
         didSet{
-            isPlaySound ? playSound(soundFileName: <#T##String#>) : stop()
+            isPlaySound ? playSound(soundFileName: "") : stop()
         }
     }
     private var audioPlayer: AVAudioPlayer?
