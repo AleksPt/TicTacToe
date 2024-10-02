@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SelectGameButtton: View {
-    var image: Image
+    var image: Image?
     var text: String
     
     var body: some View {
