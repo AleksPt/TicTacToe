@@ -24,9 +24,9 @@ struct OnbordingView: View {
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            
-                        }) {
+                        NavigationLink {
+                            SettingsGameView()
+                        } label: {
                             Constants.Icons.settings
                                 .resizable()
                                 .frame(width: 36, height: 36)
@@ -51,7 +51,7 @@ struct OnbordingView: View {
                     .foregroundColor(.black)
                 Spacer()
                 
-                NavigationLink(destination: ContentView()){
+                NavigationLink(destination: SelectGame()){
                     Text("Let's play")
                         .font(.system(size: 20, weight: .medium, design: .default))
                         .frame(width: 348, height: 80)
