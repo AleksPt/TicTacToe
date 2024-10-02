@@ -16,7 +16,7 @@ struct HeaderView: View {
         HStack {
             ZStack {
                 VStack {
-                    Constants.Skins.xSkin1
+                    settingsViewModel.selectedSkins.0
                     Text(viewModel.gameWithComputer ? "You" : "Player One")
                     .font(.system(size: 16)).fontWeight(.semibold)
                 }
@@ -37,7 +37,7 @@ struct HeaderView: View {
             
             ZStack {
                 VStack {
-                    Constants.Skins.oSkin1
+                    settingsViewModel.selectedSkins.1
                     Text(viewModel.gameWithComputer ? "Computer" : "Player Two")
                         .font(.system(size: 16)).fontWeight(.semibold)
                 }

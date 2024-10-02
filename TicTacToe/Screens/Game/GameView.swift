@@ -11,6 +11,7 @@ struct GameView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject private var viewModel: GameViewModel
     @EnvironmentObject private var timerViewModel: TimerViewModel
+    @EnvironmentObject private var settingsViewModel: SettingsViewModel
     
     var body: some View {
         ZStack {
@@ -60,8 +61,8 @@ struct GameView: View {
     var TurnStatus: some View {
         HStack {
             PlayerIndicator(image: viewModel.currentPlayer == .human
-                            ? Constants.Skins.xSkin1
-                            : Constants.Skins.oSkin1)
+                            ? settingsViewModel.selectedSkins.0
+                            : settingsViewModel.selectedSkins.1)
             Text(viewModel.currentPlayer == .human
                  ? viewModel.gameWithComputer ? "Your turn" : "Player One turn"
                  : viewModel.currentPlayer == .computer 
