@@ -44,4 +44,8 @@ enum Constants {
         static let oSkin5 = Image(.oskin5)
         static let oSkin6 = Image(.oskin6)
     }
+    
+    enum Backgrounds {
+        static let emptyLeaderboard = Image(.emptyLeaderboard)
+    }
 }
