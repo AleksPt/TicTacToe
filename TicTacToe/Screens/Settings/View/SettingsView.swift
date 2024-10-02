@@ -321,7 +321,10 @@ struct SettingsGameView: View {
                 ForEach(0..<6){ number in
                     Button(action: {
                         currentIcons = number
-                        print("\(number)")
+                        saveSkins(
+                            firstSkin: icons[number].first,
+                            secondSkin: icons[number].last
+                        )
                     } ) {
                         PickShape(picked: currentIcons == number ? true : false, playerIcons: icons[number])
                     }
@@ -342,6 +345,15 @@ struct SettingsGameView: View {
     private func checkMusic(musics: Bool...)-> Bool {
         let check = musics.contains(true) ? true : false
         return check
+    }
+    
+    private func saveSkins(firstSkin: String?, secondSkin: String?) {
+        if let firstSkin = firstSkin,
+           let secondSkin  = secondSkin {
+            let firstImage = Image(firstSkin)
+            let secondImage = Image(secondSkin)
+            settingsViewModel.selectedSkins = (firstImage, secondImage)
+        }
     }
 }
 
