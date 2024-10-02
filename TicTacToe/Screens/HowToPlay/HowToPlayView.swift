@@ -43,33 +43,40 @@ struct HowToPlayView: View {
                            "The first player to align three of their markers horizontally, vertically, or diagonally wins. Examples of Winning Combinations:\nHorizontal: Squares 1, 2, 3 or 4,5,6 or 7,8,9\nVertical: Squares 1, 4, 7 or 2, 5,8 ог 3,6,9\nDiagonal: Squares 1, 5, 9 or 3, 5,7."]
     
     var body: some View {
-            ScrollView {
-                VStack {
-                    ForEach(0..<4){ rule in
-                        HStack(alignment: .top, spacing: 16) {
-                            Image(systemName: "\(String(rule + 1)).circle.fill") // из системных картинок, можно кастомную самому нарисовать ...
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .background(Color.black)
-                                .foregroundStyle(Color.appPurple)
-                                .clipShape(Circle())
-                                .overlay(Circle().stroke(.white , lineWidth: 2)) // показалось, что черный прорывается снизу - обернул в оверлей
-                            
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 30)
-                                    .foregroundStyle(Color.appBackground)
-                                Text(rules[rule])
-                                    .font(.title3)
-                                    .tint(Color.black)
-                                    .padding(10)
+        NavigationView {
+            ZStack {
+                Color.appBackground
+                    .ignoresSafeArea()
+                
+                ScrollView {
+                    VStack {
+                        ForEach(0..<4){ rule in
+                            HStack(alignment: .top, spacing: 16) {
+                                Image(systemName: "\(String(rule + 1)).circle.fill") // из системных картинок, можно кастомную самому нарисовать ...
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .background(Color.black)
+                                    .foregroundStyle(Color.appPurple)
+                                    .clipShape(Circle())
+                                    .overlay(Circle().stroke(.white , lineWidth: 2)) 
+                                
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .foregroundStyle(Color.appLightBlue)
+                                    Text(rules[rule])
+                                        .font(.title3)
+                                        .tint(Color.black)
+                                        .padding(10)
+                                }
                             }
                         }
                     }
+                    .padding()
                 }
-                .padding()
             }
-            .navigationBarBackButtonHidden(true)
-            .setToolBar() // проверить будет ли закрываться навигейшн автоматически
+            .setToolBar()
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
