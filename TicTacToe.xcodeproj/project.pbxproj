@@ -35,6 +35,7 @@
 		FA4B55EA2CAB41580084DC1B /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B55E92CAB41580084DC1B /* HeaderView.swift */; };
 		FA7A7B5A2CAC8DFF00B1B6F0 /* LinePointsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A7B592CAC8DFF00B1B6F0 /* LinePointsModel.swift */; };
 		FA7A7B5E2CAD774300B1B6F0 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A7B5D2CAD774300B1B6F0 /* TimerViewModel.swift */; };
+		FA7A7B602CADECEC00B1B6F0 /* LeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A7B5F2CADECEB00B1B6F0 /* LeaderboardViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		FA4B55E92CAB41580084DC1B /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		FA7A7B592CAC8DFF00B1B6F0 /* LinePointsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinePointsModel.swift; sourceTree = "<group>"; };
 		FA7A7B5D2CAD774300B1B6F0 /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
+		FA7A7B5F2CADECEB00B1B6F0 /* LeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 		2F2E5D602CAD49FA00AA15B5 /* Leaderboard */ = {
 			isa = PBXGroup;
 			children = (
+				FA7A7B5F2CADECEB00B1B6F0 /* LeaderboardViewModel.swift */,
 				2F2E5D612CAD4AB000AA15B5 /* Leaderboard.swift */,
 				2F2E5D632CAD4AEA00AA15B5 /* LeadersView.swift */,
 				2F2E5D652CAD4AFE00AA15B5 /* Leader.swift */,
@@ -375,6 +378,7 @@
 				2F2E5D582CACC23D00AA15B5 /* SelectGameButton.swift in Sources */,
 				FA7A7B5E2CAD774300B1B6F0 /* TimerViewModel.swift in Sources */,
 				8407611A2CADABC600EA4ACE /* AudioService.swift in Sources */,
+				FA7A7B602CADECEC00B1B6F0 /* LeaderboardViewModel.swift in Sources */,
 				84B4A19D2CAB04710088BFC6 /* OnbordingView.swift in Sources */,
 				FA4B55EA2CAB41580084DC1B /* HeaderView.swift in Sources */,
 				84110FBC2CAC6A08004D61B8 /* SettingsViewModel.swift in Sources */,

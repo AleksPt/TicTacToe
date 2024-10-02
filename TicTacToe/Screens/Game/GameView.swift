@@ -12,6 +12,7 @@ struct GameView: View {
     @EnvironmentObject private var viewModel: GameViewModel
     @EnvironmentObject private var timerViewModel: TimerViewModel
     @EnvironmentObject private var settingsViewModel: SettingsViewModel
+    @EnvironmentObject private var leaderboardVM: LeaderboardViewModel
     
     var body: some View {
         ZStack {
@@ -119,6 +120,7 @@ struct GameView: View {
     private func finishGame() -> Bool {
         if viewModel.winPattern != nil {
             timerViewModel.pauseTimer()
+            leaderboardVM.addLeader(timerViewModel.time)
            return true
         } else {
             return false

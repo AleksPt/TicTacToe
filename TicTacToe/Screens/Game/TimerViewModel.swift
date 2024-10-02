@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 class TimerViewModel: ObservableObject {
+    
     var timeValue: Int? {
         didSet {
             time = timeValue

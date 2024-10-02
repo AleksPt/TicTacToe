@@ -12,6 +12,7 @@ struct TicTacToeApp: App {
     @StateObject private var settingsViewModel = SettingsViewModel()
     @StateObject private var timerViewModel = TimerViewModel()
     @StateObject private var audioService = AudioService()
+    @StateObject private var leaderboardVM = LeaderboardViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -19,6 +20,7 @@ struct TicTacToeApp: App {
                 .environmentObject(settingsViewModel)
                 .environmentObject(timerViewModel)
                 .environmentObject(audioService)
+                .environmentObject(leaderboardVM)
         }
     }
 }
