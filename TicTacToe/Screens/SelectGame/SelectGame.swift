@@ -15,7 +15,7 @@ struct SelectGame: View {
             ZStack {
                 Constants.Colors.background
                 Rectangle()
-                    .frame(width: 285, height: 247)
+                    .frame(width: 285, height: 336)
                     .cornerRadius(30)
                     .foregroundColor(.white)
                     .shadow(color: Color(red: 0.6, green: 0.62, blue: 0.76).opacity(0.3), radius: 15, x: 4, y: 4)
@@ -25,9 +25,21 @@ struct SelectGame: View {
                         .fontWeight(.bold)
                         .foregroundColor(Constants.Colors.black)
                     
-                    SelectGameButtton(image: Constants.Icons.singlePlayer, text: "Single Player")
-                    SelectGameButtton(image: Constants.Icons.twoPlayers, text: "Two Players", isSelected: false)
+                    NavigationLink(destination: GameView()
+                        .environmentObject(GameViewModel(gameWithComputer: true))
+                    ) {
+                        SelectGameButtton(image: Constants.Icons.singlePlayer, text: "Single Player")
+                    }
+                    
+                    NavigationLink(destination: GameView()
+                        .environmentObject(GameViewModel(gameWithComputer: false))
+                    ){
+                        SelectGameButtton(image: Constants.Icons.twoPlayers, text: "Two Players")
+                    }
                         .padding()
+                    NavigationLink(destination: Leaderboard()) {
+                        SelectGameButtton(image: Constants.Icons.leaderboard, text: "Leaderboard")
+                    }
                 }
             }
             .ignoresSafeArea()
