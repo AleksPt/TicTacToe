@@ -40,9 +40,10 @@ struct PickShape: View {
 }
 
 struct ToggleText: ViewModifier {
+    
     func body(content: Content) -> some View {
         content
-            .padding(.trailing,210) // ~ что бы текст сместился влево
+            .padding(.trailing,210) 
             .font(.system(size: 20))
             .frame(width:282, height: 40)
             .tint(.black)
@@ -55,25 +56,35 @@ extension View {
 }
 
 struct SettingsGameView: View {
+    @StateObject private var viewModel = SettingsViewModel()
+    
     @Environment(\.presentationMode) var presentationMode
-    @State private var gameTime = true // включена игра на время
+    @State private var gameTime = false
+    @State private var gameMusic = false
     
-    @State private var durationStandBy = false
+    @State private var gameTimeStandBy = true
+    @State private var gameMusicStandBy = true
     
-    @State private var gameLimit = 30 // текуший выбор пользователя по продолжительности игры
+    @State private var gameLimit = 0
+    @State private var currentMusic = ""
     
     @State private var limit30 = false
-    @State private var limit60 = false // для изменения состояния Toggle
+    @State private var limit60 = false
     @State private var limit120 = false
     
-    @State private var currentIcons = 0 // индекс массива иконок, которые выбраны пользователем
+    @State private var classicMusic = false
+    @State private var instrumentalMusic = false
+    @State private var natureMusic = false
+    
+    @State private var currentIcons = 0
     
     let icons = [ ["Xskin1","Oskin1" ], ["Xskin2","Oskin2"], ["Xskin3","Oskin3"], ["Xskin4","Oskin4"],["Xskin5","Oskin5"], ["Xskin6","Oskin6"] ]
     
-    let layout = [ GridItem(.fixed(152), spacing: 20),//20 - расстояние между ячейками
-                   GridItem(.fixed(152)) ] // устанавливает ширину ячеек в грид
+    let layout = [ GridItem(.fixed(152), spacing: 20),
+                   GridItem(.fixed(152)) ]
     
     var body: some View {
+        NavigationView{
             ZStack {
                 Color.appBackground
                     .ignoresSafeArea()
@@ -83,83 +94,193 @@ struct SettingsGameView: View {
                             RoundedRectangle(cornerRadius: 30)
                                 .foregroundStyle(.white)
                             VStack {
-                                ZStack { RoundedRectangle(cornerRadius: 30)
-                                        .foregroundStyle(Color.appLightBlue)
-                                    Toggle(isOn: $gameTime) {
-                                        Text("Game Time")
-                                            .font(.system(size: 20))
-                                    }
-                                    .tint(Color.appBlue)
-                                    .padding(20)
-                                }.frame(width:308, height: 70)
-                                    .padding(20)
-                                
-                                //MARK: - DisclosureGroup
-                                if gameTime {
-                                    ZStack() {
-                                        RoundedRectangle(cornerRadius: 30)
+                                //MARK: - DisclosureGroup duration
+                                VStack {
+                                    ZStack { RoundedRectangle(cornerRadius: 30)
                                             .foregroundStyle(Color.appLightBlue)
-                                            .frame(width: 308)
-                                                                               
-                                        VStack() {
-                                            DisclosureGroup( isExpanded: $gameTime) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameTime) как понравится команде так и оставим.
-                                                VStack( spacing: 0) {
-                                                    
-                                                    Divider()
-                                                        .background(Color.appBlue)
-                                                        
-                                                    Toggle(isOn: $limit30) {
-                                                        Text("30 sec")
-                                                            .setToogleText()
-                                                    } .onChange(of: limit30,perform:  { _ in
-                                                        if limit30 {
-                                                            gameLimit = 30 // отдаем значение для исп. в таймере
-                                                            limit60 = false // тушим и фолсим другие лимиты
-                                                            limit120 = false
-                                                        }
-                                                    })
-                                                    .background(limit30 ? Color.appPurple : .clear)
-                                                    .toggleStyle(.button)
-                                                    
-                                                    Toggle(isOn: $limit60) {
-                                                        Text("60 sec")
-                                                            .setToogleText()
-                                                    }.onChange(of: limit60, perform:  { _ in
-                                                        if limit60 {
-                                                        gameLimit = 60
-                                                        limit30 = false
-                                                        limit120 = false
-                                                    }
-                                                    })
-                                                    .background(limit60 ? Color.appPurple : .clear)
-                                                    .toggleStyle(.button)
-                                                    
-                                                    Toggle(isOn: $limit120) {
-                                                        Text("120 sec")
-                                                            .setToogleText()
-                                                    }.onChange(of: limit120, perform: { _ in
-                                                        if limit120 {
-                                                        gameLimit = 120
-                                                        limit60 = false
-                                                        limit30 = false
-                                                    }
-                                                    })
-                                                    .background(limit120 ? Color.appPurple : .clear)
-                                                    .toggleStyle(.button)
-                                                    .padding(.bottom, 20)
-                                                    
-                                                }//VStack
-                                            } label: {
-                                                Text("Duration")
-                                                    .font(.system(size: 20))
-                                                    .tint(Color.black)
-                                                    .padding()
-                                            }.accentColor(.clear)
-//                                            .buttonStyle(PlainButtonStyle()).accentColor(.gray).disabled(true)
+                                        Toggle(isOn: $gameTime) {
+                                            Text("Game Time")
+                                                .font(.system(size: 20))
                                         }
-                                    }.padding(.bottom,20)
-                                    .frame(width: 308)
-                                } //if
+                                        .tint(Color.appBlue)
+                                        .padding(20)
+                                    }.frame(width:308, height: 69)
+                                        .padding(.top,20)
+                                        .padding(.bottom,20)
+                                    
+                                    if gameTime {
+                                        ZStack() {
+                                            RoundedRectangle(cornerRadius: 30)
+                                                .foregroundStyle(Color.appLightBlue)
+                                                .frame(width: 308)
+                                            
+                                            
+                                            VStack() {
+                                                DisclosureGroup( isExpanded: $gameTimeStandBy) {
+                                                    VStack( spacing: 0) {
+                                                        
+                                                        Divider()
+                                                            .background(Color.appBlue)
+                                                        
+                                                        Toggle(isOn: $limit30) {
+                                                            Text("30 sec")
+                                                                .setToogleText()
+                                                        } .onChange(of: limit30,perform:  { _ in
+                                                            if limit30 {
+                                                                gameLimit = 30
+                                                                viewModel.timer = TimerTime.thirty
+                                                                limit60 = false
+                                                                limit120 = false
+                                                            }
+                                                        })
+                                                        .background(limit30 ? Color.appPurple : .clear)
+                                                        .toggleStyle(.button)
+                                                        
+                                                        Toggle(isOn: $limit60) {
+                                                            Text("60 sec")
+                                                                .setToogleText()
+                                                        }.onChange(of: limit60, perform:  { _ in
+                                                            if limit60 {
+                                                                gameLimit = 60
+                                                                viewModel.timer = TimerTime.sixty
+                                                                limit30 = false
+                                                                limit120 = false
+                                                            }
+                                                        })
+                                                        .background(limit60 ? Color.appPurple : .clear)
+                                                        .toggleStyle(.button)
+                                                        
+                                                        Toggle(isOn: $limit120) {
+                                                            Text("120 sec")
+                                                                .setToogleText()
+                                                        }.onChange(of: limit120, perform: { _ in
+                                                            if limit120 {
+                                                                gameLimit = 120
+                                                                viewModel.timer = TimerTime.oneHundredTwenty
+                                                                limit60 = false
+                                                                limit30 = false
+                                                            }
+                                                        })
+                                                        .background(limit120 ? Color.appPurple : .clear)
+                                                        .toggleStyle(.button)
+                                                        .padding(.bottom, 20)
+                                                        
+                                                    }//VStack
+                                                } label: {
+                                                    HStack {
+                                                        Text("Duration")
+                                                            .font(.system(size: 20))
+                                                            .tint(Color.black)
+                                                            .padding(.leading,20)
+                                                            .frame(height: 61)
+                                                        Spacer()
+                                                        Text(checkDuration(limits: limit30, limit60, limit120) ? "\(String(gameLimit)) sec" : " ")
+                                                            .tint(Color.black)
+                                                            .font(.system(size: 20))
+                                                    }
+                                                    
+                                                }.accentColor(.clear)
+                                            }
+                                        }
+                                        .padding(.bottom,20)
+                                        .frame(width: 308)
+                                    }
+                                }
+                                
+                                
+                                //MARK: - DisclosureGroup Music
+                                VStack {
+                                    ZStack { RoundedRectangle(cornerRadius: 30)
+                                            .foregroundStyle(Color.appLightBlue)
+                                        Toggle(isOn: $gameMusic) {
+                                            Text("Music")
+                                                .font(.system(size: 20))
+                                        }
+                                        .tint(Color.appBlue)
+                                        .padding(20)
+                                    }.frame(width:308, height: 69)
+                                        .padding(.bottom,20)
+                                    
+                                    
+                                    if gameMusic {
+                                        ZStack() {
+                                            RoundedRectangle(cornerRadius: 30)
+                                                .foregroundStyle(Color.appLightBlue)
+                                                .frame(width: 308)
+                                            
+                                            VStack() {
+                                                DisclosureGroup( isExpanded: $gameMusicStandBy) {
+                                                    VStack( spacing: 0) {
+                                                        
+                                                        Divider()
+                                                            .background(Color.appBlue)
+                                                        
+                                                        Toggle(isOn: $classicMusic) {
+                                                            Text("Classical")
+                                                                .padding(.trailing,190)
+                                                                .font(.system(size: 20))
+                                                                .frame(width:282, height: 40)
+                                                                .tint(.black)
+                                                        } .onChange(of: classicMusic,perform:  { _ in
+                                                            if classicMusic {
+                                                                currentMusic = "Classical"
+                                                                instrumentalMusic = false
+                                                                natureMusic = false
+                                                            }
+                                                        })
+                                                        .background(classicMusic ? Color.appPurple : .clear)
+                                                        .toggleStyle(.button)
+                                                        
+                                                        Toggle(isOn: $instrumentalMusic) {
+                                                            Text("Instrumentals")
+                                                                .padding(.trailing,150)
+                                                                .font(.system(size: 20))
+                                                                .frame(width:282, height: 40)
+                                                                .tint(.black)
+                                                        }.onChange(of: instrumentalMusic, perform:  { _ in
+                                                            if instrumentalMusic {
+                                                                currentMusic = "Instrumental"
+                                                                classicMusic = false
+                                                                natureMusic = false
+                                                            }
+                                                        })
+                                                        .background(instrumentalMusic ? Color.appPurple : .clear)
+                                                        .toggleStyle(.button)
+                                                        
+                                                        Toggle(isOn: $natureMusic) {
+                                                            Text("Nature")
+                                                                .setToogleText()
+                                                        }.onChange(of: natureMusic, perform: { _ in
+                                                            if natureMusic {
+                                                                currentMusic = "Nature"
+                                                                classicMusic = false
+                                                                instrumentalMusic = false
+                                                            }
+                                                        })
+                                                        .background(natureMusic ? Color.appPurple : .clear)
+                                                        .toggleStyle(.button)
+                                                        .padding(.bottom, 20)
+                                                        
+                                                    }
+                                                } label: {
+                                                    HStack {
+                                                        Text("Select Music")
+                                                            .font(.system(size: 20))
+                                                            .tint(Color.black)
+                                                            .padding()
+                                                            .frame(height: 61)
+                                                        Spacer()
+                                                        Text(checkMusic(musics: classicMusic, instrumentalMusic, natureMusic)  ? currentMusic : "")
+                                                            .tint(Color.black)
+                                                            .font(.system(size: 20))
+                                                    }
+                                                }.accentColor(.clear)
+                                            }
+                                        }.padding(.bottom,20)
+                                            .frame(width: 308)
+                                    }
+                                }
+                                
                             }
                         }
                         .frame(width:348)
@@ -181,9 +302,9 @@ struct SettingsGameView: View {
                     }
                     .frame(width: 324, height: 490)
                     .padding(.top,40)
-                } // ScrollView
-            } // ZStack Color fill
-            .navigationBarBackButtonHidden(true)
+                }
+            }
+            
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
@@ -192,11 +313,25 @@ struct SettingsGameView: View {
                         Image("backIcon")
                     }
                 }
+                
+                ToolbarItem(placement: .principal) {
+                    Text("Settings")
+                        .font(.title).fontWeight(.bold)
+                }
             }
+        }.navigationBarBackButtonHidden(true)
     }
     
-    private func chooseTimeLimit(for toogle: Bool) {
-      // onChange в Toogle упростить и вынести в эту ф-ию
+    private func checkDuration(limits: Bool... )-> Bool {
+        if limits.contains(true) {
+            return true
+        }
+        return false
+    }
+    
+    private func checkMusic(musics: Bool...)-> Bool {
+        let check = musics.contains(true) ? true : false
+        return check
     }
 }
 
