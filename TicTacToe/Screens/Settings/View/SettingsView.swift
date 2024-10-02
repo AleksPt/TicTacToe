@@ -59,8 +59,8 @@ struct SettingsGameView: View {
     @StateObject private var viewModel = SettingsViewModel()
     
     @Environment(\.presentationMode) var presentationMode
-    @State private var gameTime = true // включена игра на время
-    @State private var gameMusic = true
+    @State private var gameTime = false // включена игра на время
+    @State private var gameMusic = false
     
     @State private var gameTimeStandBy = false
     @State private var gameMusicStandBy = false
