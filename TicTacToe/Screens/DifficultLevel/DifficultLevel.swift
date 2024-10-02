@@ -1,5 +1,5 @@
 //
-//  SelectGame.swift
+//  DifficultLevel.swift
 //  TicTacToe
 //
 //  Created by VASILY IKONNIKOV on 02.10.2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SelectGame: View {
+struct DifficultLevel: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -25,18 +25,22 @@ struct SelectGame: View {
                         .fontWeight(.bold)
                         .foregroundColor(Constants.Colors.black)
                     
-                    NavigationLink(destination: DifficultLevel()) {
-                        SelectGameButtton(image: Constants.Icons.singlePlayer, text: "Single Player")
+                    NavigationLink(destination: GameView()
+                        .environmentObject(GameViewModel(gameWithComputer: true))
+                    ) {
+                        SelectGameButtton(text: "Hard")
                     }
                     
                     NavigationLink(destination: GameView()
                         .environmentObject(GameViewModel(gameWithComputer: false))
                     ){
-                        SelectGameButtton(image: Constants.Icons.twoPlayers, text: "Two Players")
+                        SelectGameButtton(text: "Standart")
                     }
                         .padding()
-                    NavigationLink(destination: Leaderboard()) {
-                        SelectGameButtton(image: Constants.Icons.leaderboard, text: "Leaderboard")
+                    NavigationLink(destination: GameView()
+                        .environmentObject(GameViewModel(gameWithComputer: false))
+                    ) {
+                        SelectGameButtton(text: "Easy")
                     }
                 }
             }
@@ -63,9 +67,10 @@ struct SelectGame: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+
     }
 }
 
 #Preview {
-    SelectGame()
+    DifficultLevel()
 }
