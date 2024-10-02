@@ -28,7 +28,7 @@ struct HeaderView: View {
             Spacer()
             
             if settingsViewModel.isOnTimer {
-                Text(timeString(time: timerViewModel.time))
+                Text(timeString(time: timerViewModel.time) ?? "")
                     .font(.system(size: 20).bold())
                     .multilineTextAlignment(.center)
             }
@@ -48,7 +48,8 @@ struct HeaderView: View {
         }
     }
     
-    private func timeString(time: Int!) -> String {
+    private func timeString(time: Int?) -> String? {
+        guard let time else { return nil }
         let minutes = time / 60
         let seconds = time % 60
         return String(format: "%01d:%02d", minutes, seconds)

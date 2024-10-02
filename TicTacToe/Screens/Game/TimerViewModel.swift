@@ -9,22 +9,21 @@ import SwiftUI
 import Combine
 
 class TimerViewModel: ObservableObject {
-    @StateObject private var settingsViewModel = SettingsViewModel()
     
     @Published var time: Int?
     var timer: AnyCancellable?
     
-    init() {
-        time = settingsViewModel.timer?.rawValue
-    }
-    
     func startTimer() {
+        guard time != nil else { return }
         self.timer = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { _ in
-                withAnimation {
-                    guard self.time != nil else { return }
-                    self.time! -= 1
+                if self.time == 0 {
+                    self.pauseTimer()
+                } else {
+                    withAnimation {
+                        self.time! -= 1
+                    }
                 }
             }
     }
