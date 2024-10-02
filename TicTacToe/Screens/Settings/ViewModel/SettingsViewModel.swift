@@ -10,9 +10,13 @@ import SwiftUI
 final class SettingsViewModel: ObservableObject {
     //MARK: - Property
     @Published var timer: TimerTime? = nil
-    @Published var isOnTimer = false {
+    @Published var isOnTimer = true {
         didSet{ timer = isOnTimer ? TimerTime.thirty : nil }
     }
+//    @Published var timer: TimerTime? = .sixty
+//    @Published var isOnTimer = true {
+//        didSet{ timer = isOnTimer ? TimerTime.thirty : nil }
+//    }
     @Published var selectedSkins: (Image,Image) = (Constants.Skins.xSkin1, Constants.Skins.oSkin1)
     
     //MARK: - Method's

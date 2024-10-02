@@ -33,6 +33,7 @@
 		FA4B55E32CAAA3E20084DC1B /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B55E22CAAA3E20084DC1B /* GameViewModel.swift */; };
 		FA4B55EA2CAB41580084DC1B /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B55E92CAB41580084DC1B /* HeaderView.swift */; };
 		FA7A7B5A2CAC8DFF00B1B6F0 /* LinePointsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A7B592CAC8DFF00B1B6F0 /* LinePointsModel.swift */; };
+		FA7A7B5E2CAD774300B1B6F0 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A7B5D2CAD774300B1B6F0 /* TimerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		FA4B55E22CAAA3E20084DC1B /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		FA4B55E92CAB41580084DC1B /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		FA7A7B592CAC8DFF00B1B6F0 /* LinePointsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinePointsModel.swift; sourceTree = "<group>"; };
+		FA7A7B5D2CAD774300B1B6F0 /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				FA4B55E22CAAA3E20084DC1B /* GameViewModel.swift */,
+				FA7A7B5D2CAD774300B1B6F0 /* TimerViewModel.swift */,
 				FA4B55E02CAAA3960084DC1B /* GameView.swift */,
 				FA4B55EB2CABF6090084DC1B /* Components */,
 			);
@@ -359,6 +362,7 @@
 				84B4A19B2CAB04710088BFC6 /* OnbordingViewModel.swift in Sources */,
 				84B4A19C2CAB04710088BFC6 /* OnbordingModel.swift in Sources */,
 				2F2E5D582CACC23D00AA15B5 /* SelectGameButton.swift in Sources */,
+				FA7A7B5E2CAD774300B1B6F0 /* TimerViewModel.swift in Sources */,
 				84B4A19D2CAB04710088BFC6 /* OnbordingView.swift in Sources */,
 				FA4B55EA2CAB41580084DC1B /* HeaderView.swift in Sources */,
 				84110FBC2CAC6A08004D61B8 /* SettingsViewModel.swift in Sources */,

@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct GameView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject private var viewModel: GameViewModel
