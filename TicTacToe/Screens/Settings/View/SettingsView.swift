@@ -308,7 +308,7 @@ struct SettingsGameView: View {
                     .padding(.top,40)
                 } // ScrollView
             } // ZStack Color fill
-            .navigationBarBackButtonHidden(true)
+            
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
@@ -323,7 +323,7 @@ struct SettingsGameView: View {
                         .font(.title).fontWeight(.bold)
                 }
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
     
     private func chooseTimeLimit(for toogle: Bool) {
