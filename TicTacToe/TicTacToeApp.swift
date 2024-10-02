@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct TicTacToeApp: App {
+    @StateObject private var settingsViewModel = SettingsViewModel()
+    @StateObject private var timerViewModel = TimerViewModel()
+    @StateObject private var audioService = AudioService()
+    
     var body: some Scene {
         WindowGroup {
             OnbordingView()
+                .environmentObject(settingsViewModel)
+                .environmentObject(timerViewModel)
+                .environmentObject(audioService)
         }
     }
 }

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HeaderView: View {
     @EnvironmentObject var viewModel: GameViewModel
+    @EnvironmentObject var settingsViewModel: SettingsViewModel
+    @EnvironmentObject var timerViewModel: TimerViewModel
     
     var body: some View {
         HStack {
@@ -25,6 +27,14 @@ struct HeaderView: View {
             
             Spacer()
             
+            if settingsViewModel.isOnTimer {
+                Text(timeString(time: timerViewModel.time) ?? "")
+                    .font(.system(size: 20).bold())
+                    .multilineTextAlignment(.center)
+            }
+            
+            Spacer()
+            
             ZStack {
                 VStack {
                     Constants.Skins.oSkin1
@@ -37,8 +47,16 @@ struct HeaderView: View {
             .clipShape(.rect(cornerRadius: 30))
         }
     }
+    
+    private func timeString(time: Int?) -> String? {
+        guard let time else { return nil }
+        let minutes = time / 60
+        let seconds = time % 60
+        return String(format: "%01d:%02d", minutes, seconds)
+    }
 }
 
 #Preview {
     HeaderView()
+        .environmentObject(GameViewModel(gameWithComputer: true))
 }

@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-
-
 struct GameView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject private var viewModel: GameViewModel
+    @EnvironmentObject private var timerViewModel: TimerViewModel
     
     var body: some View {
         ZStack {
             Constants.Colors.background
             VStack {
                 HeaderView()
+                    .environmentObject(timerViewModel)
                 .padding(.horizontal, 30)
                 .padding(.top, 122)
                 
@@ -51,6 +51,9 @@ struct GameView: View {
                 image: viewModel.statusGame?.image ?? Constants.Icons.win
             )
         }
+        .onAppear(perform: {
+            timerViewModel.startTimer()
+        })
     }
     
     var TurnStatus: some View {
@@ -108,6 +111,7 @@ struct GameView: View {
     
     private func didDismiss() {
         viewModel.resetGame()
+        timerViewModel.stopTimer()
     }
 }
 
