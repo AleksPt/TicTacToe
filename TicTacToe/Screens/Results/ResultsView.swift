@@ -39,24 +39,29 @@ struct ResultView: View {
     let image: Image
     
     var body: some View {
-        
-        Spacer()
-        
-       Text(text)
-            .font(.system(size: 25,weight: .heavy, design: .default))
-        
-        ZStack{
-            Color.appBlue
-            image
-        }.frame(width: 228, height: 228)
-            .clipShape(Circle())
-        
-        Spacer()
-        
-        VStack(spacing: 16) {
-            ResultViewButton(button: .playAgain, action: playAgain)
-            ResultViewButton(button: .back, action: returnToOnbourding)
-        }.padding(.bottom, 30)
+        ZStack {
+            Color.appBackground
+                .ignoresSafeArea()
+            VStack {
+                Spacer()
+                
+                Text(text)
+                    .font(.system(size: 25,weight: .heavy, design: .default))
+                
+                ZStack{
+                    Color.appBlue
+                    image
+                }.frame(width: 228, height: 228)
+                    .clipShape(Circle())
+                
+                Spacer()
+                
+                VStack(spacing: 16) {
+                    ResultViewButton(button: .playAgain, action: playAgain)
+                    ResultViewButton(button: .back, action: returnToOnbourding)
+                }.padding(.bottom, 30)
+            }
+        }
     }
     
     func returnToOnbourding() {

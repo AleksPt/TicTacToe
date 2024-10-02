@@ -43,7 +43,7 @@ struct ToggleText: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .padding(.trailing,210) // ~ что бы текст сместился влево
+            .padding(.trailing,210) 
             .font(.system(size: 20))
             .frame(width:282, height: 40)
             .tint(.black)
@@ -59,29 +59,29 @@ struct SettingsGameView: View {
     @StateObject private var viewModel = SettingsViewModel()
     
     @Environment(\.presentationMode) var presentationMode
-    @State private var gameTime = false // включена игра на время
+    @State private var gameTime = false
     @State private var gameMusic = false
     
     @State private var gameTimeStandBy = true
     @State private var gameMusicStandBy = true
     
-    @State private var gameLimit = 0 // текуший выбор пользователя по продолжительности игры
-    @State private var currentMusic = "" // текуший выбор музыки
+    @State private var gameLimit = 0
+    @State private var currentMusic = ""
     
     @State private var limit30 = false
-    @State private var limit60 = false // для изменения состояния Toggle Lim
+    @State private var limit60 = false
     @State private var limit120 = false
     
     @State private var classicMusic = false
-    @State private var instrumentalMusic = false // для изменения состояния Toggle Mus
+    @State private var instrumentalMusic = false
     @State private var natureMusic = false
     
-    @State private var currentIcons = 0 // индекс массива иконок, которые выбраны пользователем
+    @State private var currentIcons = 0
     
     let icons = [ ["Xskin1","Oskin1" ], ["Xskin2","Oskin2"], ["Xskin3","Oskin3"], ["Xskin4","Oskin4"],["Xskin5","Oskin5"], ["Xskin6","Oskin6"] ]
     
-    let layout = [ GridItem(.fixed(152), spacing: 20),//20 - расстояние между ячейками
-                   GridItem(.fixed(152)) ] // устанавливает ширину ячеек в грид
+    let layout = [ GridItem(.fixed(152), spacing: 20),
+                   GridItem(.fixed(152)) ]
     
     var body: some View {
         NavigationView{
@@ -116,7 +116,7 @@ struct SettingsGameView: View {
                                             
                                             
                                             VStack() {
-                                                DisclosureGroup( isExpanded: $gameTimeStandBy) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameTime) как понравится команде так и оставим.
+                                                DisclosureGroup( isExpanded: $gameTimeStandBy) {
                                                     VStack( spacing: 0) {
                                                         
                                                         Divider()
@@ -128,8 +128,8 @@ struct SettingsGameView: View {
                                                         } .onChange(of: limit30,perform:  { _ in
                                                             if limit30 {
                                                                 gameLimit = 30
-                                                                viewModel.timer = TimerTime.thirty // отдаем значение для исп. в таймере
-                                                                limit60 = false // тушим и фолсим другие лимиты
+                                                                viewModel.timer = TimerTime.thirty
+                                                                limit60 = false
                                                                 limit120 = false
                                                             }
                                                         })
@@ -180,14 +180,12 @@ struct SettingsGameView: View {
                                                     }
                                                     
                                                 }.accentColor(.clear)
-                                                
-                                                //   .buttonStyle(PlainButtonStyle()).accentColor(.gray).disabled(true)
                                             }
                                         }
                                         .padding(.bottom,20)
                                         .frame(width: 308)
-                                    } //if
-                                }//VStack clouse duration
+                                    }
+                                }
                                 
                                 
                                 //MARK: - DisclosureGroup Music
@@ -201,7 +199,6 @@ struct SettingsGameView: View {
                                         .tint(Color.appBlue)
                                         .padding(20)
                                     }.frame(width:308, height: 69)
-                                    //                                        .padding(20)
                                         .padding(.bottom,20)
                                     
                                     
@@ -212,7 +209,7 @@ struct SettingsGameView: View {
                                                 .frame(width: 308)
                                             
                                             VStack() {
-                                                DisclosureGroup( isExpanded: $gameMusicStandBy) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameMusic) как понравится команде так и оставим.
+                                                DisclosureGroup( isExpanded: $gameMusicStandBy) {
                                                     VStack( spacing: 0) {
                                                         
                                                         Divider()
@@ -220,14 +217,14 @@ struct SettingsGameView: View {
                                                         
                                                         Toggle(isOn: $classicMusic) {
                                                             Text("Classical")
-                                                                .padding(.trailing,190) // ~ что бы текст сместился влево
+                                                                .padding(.trailing,190)
                                                                 .font(.system(size: 20))
                                                                 .frame(width:282, height: 40)
                                                                 .tint(.black)
                                                         } .onChange(of: classicMusic,perform:  { _ in
                                                             if classicMusic {
-                                                                currentMusic = "Classical" // отдаем значение для исп. в таймере
-                                                                instrumentalMusic = false // тушим и фолсим другие лимиты
+                                                                currentMusic = "Classical"
+                                                                instrumentalMusic = false
                                                                 natureMusic = false
                                                             }
                                                         })
@@ -236,7 +233,7 @@ struct SettingsGameView: View {
                                                         
                                                         Toggle(isOn: $instrumentalMusic) {
                                                             Text("Instrumentals")
-                                                                .padding(.trailing,150) // ~ что бы текст сместился влево
+                                                                .padding(.trailing,150)
                                                                 .font(.system(size: 20))
                                                                 .frame(width:282, height: 40)
                                                                 .tint(.black)
@@ -264,7 +261,7 @@ struct SettingsGameView: View {
                                                         .toggleStyle(.button)
                                                         .padding(.bottom, 20)
                                                         
-                                                    }//VStack
+                                                    }
                                                 } label: {
                                                     HStack {
                                                         Text("Select Music")
@@ -278,15 +275,14 @@ struct SettingsGameView: View {
                                                             .font(.system(size: 20))
                                                     }
                                                 }.accentColor(.clear)
-                                                //    .buttonStyle(PlainButtonStyle()).accentColor(.gray).disabled(true)
                                             }
                                         }.padding(.bottom,20)
                                             .frame(width: 308)
-                                    } //if
-                                }//VStack
+                                    }
+                                }
                                 
                             }
-                        }//zstack
+                        }
                         .frame(width:348)
                     }
                     
@@ -306,8 +302,8 @@ struct SettingsGameView: View {
                     }
                     .frame(width: 324, height: 490)
                     .padding(.top,40)
-                } // ScrollView
-            } // ZStack Color fill
+                }
+            }
             
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -326,10 +322,6 @@ struct SettingsGameView: View {
         }.navigationBarBackButtonHidden(true)
     }
     
-    private func chooseTimeLimit(for toogle: Bool) {
-        // onChange в Toogle упростить и вынести в эту ф-ию
-    }
-    
     private func checkDuration(limits: Bool... )-> Bool {
         if limits.contains(true) {
             return true
@@ -337,13 +329,9 @@ struct SettingsGameView: View {
         return false
     }
     
-    private func checkMusic(musics: Bool...)-> Bool { //или sound, ну хз :)
+    private func checkMusic(musics: Bool...)-> Bool {
         let check = musics.contains(true) ? true : false
         return check
-        //        if musics.contains(true){
-        //            return true
-        //        }
-        //        return false
     }
 }
 
