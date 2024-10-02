@@ -34,8 +34,9 @@ struct GameView: View {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
+                    timerViewModel.pauseTimer()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        didDismiss()
+                        resetGame()
                     }
                 }, label: {
                     Constants.Icons.back
@@ -44,7 +45,7 @@ struct GameView: View {
         }
         .fullScreenCover(
             isPresented: $viewModel.isFinishedGame,
-            onDismiss: didDismiss
+            onDismiss: resetGame
         ) {
             ResultView(
                 text: viewModel.statusGame?.title ?? "",
@@ -96,7 +97,7 @@ struct GameView: View {
                 }
                 .disabled(viewModel.isGameboardDisabled)
                 
-                if (viewModel.winPattern != nil) {
+                if finishGame() {
                     Path { path in
                         path.move(to: CGPoint(x: point.x!.0, y: point.x!.1))
                         path.addLine(to: CGPoint(x: point.y!.0, y: point.y!.1))
@@ -109,9 +110,18 @@ struct GameView: View {
         .frame(width: UIScreen.main.bounds.width - 88, height: UIScreen.main.bounds.width - 88)
     }
     
-    private func didDismiss() {
+    private func resetGame() {
         viewModel.resetGame()
         timerViewModel.stopTimer()
+    }
+    
+    private func finishGame() -> Bool {
+        if viewModel.winPattern != nil {
+            timerViewModel.pauseTimer()
+           return true
+        } else {
+            return false
+        }
     }
 }
 

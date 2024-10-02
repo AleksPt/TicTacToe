@@ -34,6 +34,7 @@ struct ResultViewButton: View {
 
 struct ResultView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject private var timerViewModel: TimerViewModel
     
     let text: String
     let image: Image
@@ -71,6 +72,9 @@ struct ResultView: View {
     
     func playAgain() {
         dismiss()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            timerViewModel.startTimer()
+        }
     }
 }
 
