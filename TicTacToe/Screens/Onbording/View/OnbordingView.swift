@@ -51,7 +51,7 @@ struct OnbordingView: View {
                     .foregroundColor(.black)
                 Spacer()
                 
-                NavigationLink(destination: ContentView()){
+                NavigationLink(destination: SelectGame()){
                     Text("Let's play")
                         .font(.system(size: 20, weight: .medium, design: .default))
                         .frame(width: 348, height: 80)

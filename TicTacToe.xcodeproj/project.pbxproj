@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F2E5D562CACBB1700AA15B5 /* SelectGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2E5D552CACBB1700AA15B5 /* SelectGame.swift */; };
+		2F2E5D582CACC23D00AA15B5 /* SelectGameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2E5D572CACC23D00AA15B5 /* SelectGameButton.swift */; };
 		6C07C5972CAC4DAA00E9710E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C07C5962CAC4DAA00E9710E /* SettingsView.swift */; };
 		6CF14F622CAABEF200B03C44 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF14F612CAABEF200B03C44 /* ResultsView.swift */; };
 		6CF14F642CAAC15900B03C44 /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF14F632CAAC15900B03C44 /* HowToPlayView.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F2E5D552CACBB1700AA15B5 /* SelectGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGame.swift; sourceTree = "<group>"; };
+		2F2E5D572CACC23D00AA15B5 /* SelectGameButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGameButton.swift; sourceTree = "<group>"; };
 		6C07C5962CAC4DAA00E9710E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6CF14F612CAABEF200B03C44 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		6CF14F632CAAC15900B03C44 /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
@@ -62,6 +66,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F2E5D522CACBACA00AA15B5 /* SelectGame */ = {
+			isa = PBXGroup;
+			children = (
+				2F2E5D552CACBB1700AA15B5 /* SelectGame.swift */,
+				2F2E5D572CACC23D00AA15B5 /* SelectGameButton.swift */,
+			);
+			path = SelectGame;
+			sourceTree = "<group>";
+		};
 		84110FBF2CACA0FA004D61B8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +218,7 @@
 		FA4B55E82CAAE5360084DC1B /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				2F2E5D522CACBACA00AA15B5 /* SelectGame */,
 				84110FBF2CACA0FA004D61B8 /* Settings */,
 				84B4A19A2CAB04710088BFC6 /* Onbording */,
 				FA4B55E62CAAE5120084DC1B /* HowToPlay */,
@@ -308,9 +322,11 @@
 				FA4B55E12CAAA3960084DC1B /* GameView.swift in Sources */,
 				84B4A19B2CAB04710088BFC6 /* OnbordingViewModel.swift in Sources */,
 				84B4A19C2CAB04710088BFC6 /* OnbordingModel.swift in Sources */,
+				2F2E5D582CACC23D00AA15B5 /* SelectGameButton.swift in Sources */,
 				84B4A19D2CAB04710088BFC6 /* OnbordingView.swift in Sources */,
 				FA4B55EA2CAB41580084DC1B /* HeaderView.swift in Sources */,
 				84110FBC2CAC6A08004D61B8 /* SettingsViewModel.swift in Sources */,
+				2F2E5D562CACBB1700AA15B5 /* SelectGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
