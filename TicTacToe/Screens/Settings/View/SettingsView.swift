@@ -167,7 +167,7 @@ struct SettingsGameView: View {
                                                             .padding(.leading,20)
                                                             .frame(height: 61)
                                                         Spacer()
-                                                        Text(checkDuration(limits: limit30, limit60, limit120) ? "\(String(gameLimit)) sec" : "")
+                                                        Text(checkDuration(limits: limit30, limit60, limit120) ? "\(String(gameLimit)) sec" : " ")
                                                             .tint(Color.black)
                                                             .font(.system(size: 20))
                                                     }
