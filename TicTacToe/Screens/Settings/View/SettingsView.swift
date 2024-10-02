@@ -40,6 +40,7 @@ struct PickShape: View {
 }
 
 struct ToggleText: ViewModifier {
+    
     func body(content: Content) -> some View {
         content
             .padding(.trailing,210) // ~ что бы текст сместился влево
@@ -55,6 +56,8 @@ extension View {
 }
 
 struct SettingsGameView: View {
+    @StateObject private var viewModel = SettingsViewModel()
+    
     @Environment(\.presentationMode) var presentationMode
     @State private var gameTime = true // включена игра на время
     @State private var gameMusic = true
@@ -62,7 +65,7 @@ struct SettingsGameView: View {
     @State private var gameTimeStandBy = false
     @State private var gameMusicStandBy = false
     
-    @State private var gameLimit = 30 // текуший выбор пользователя по продолжительности игры
+    @State private var gameLimit = 0 // текуший выбор пользователя по продолжительности игры
     @State private var currentMusic = "" // текуший выбор музыки
     
     @State private var limit30 = false
@@ -123,7 +126,8 @@ struct SettingsGameView: View {
                                                                 .setToogleText()
                                                         } .onChange(of: limit30,perform:  { _ in
                                                             if limit30 {
-                                                                gameLimit = 30 // отдаем значение для исп. в таймере
+                                                                gameLimit = 30
+                                                                viewModel.timer = TimerTime.thirty // отдаем значение для исп. в таймере
                                                                 limit60 = false // тушим и фолсим другие лимиты
                                                                 limit120 = false
                                                             }
@@ -137,6 +141,7 @@ struct SettingsGameView: View {
                                                         }.onChange(of: limit60, perform:  { _ in
                                                             if limit60 {
                                                                 gameLimit = 60
+                                                                viewModel.timer = TimerTime.sixty
                                                                 limit30 = false
                                                                 limit120 = false
                                                             }
@@ -150,6 +155,7 @@ struct SettingsGameView: View {
                                                         }.onChange(of: limit120, perform: { _ in
                                                             if limit120 {
                                                                 gameLimit = 120
+                                                                viewModel.timer = TimerTime.oneHundredTwenty
                                                                 limit60 = false
                                                                 limit30 = false
                                                             }
@@ -173,9 +179,11 @@ struct SettingsGameView: View {
                                                     }
                                                     
                                                 }.accentColor(.clear)
+                                                    
                                                 //   .buttonStyle(PlainButtonStyle()).accentColor(.gray).disabled(true)
                                             }
                                         }
+                                        .padding(.bottom,20)
                                             .frame(width: 308)
                                     } //if
                                 }//VStack clouse duration
@@ -192,7 +200,9 @@ struct SettingsGameView: View {
                                         .tint(Color.appBlue)
                                         .padding(20)
                                     }.frame(width:308, height: 69)
-                                        .padding(20)
+//                                        .padding(20)
+                                        .padding(.bottom,20)
+                                        
                                     
                                     if gameMusic {
                                         ZStack() {
