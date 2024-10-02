@@ -62,8 +62,8 @@ struct SettingsGameView: View {
     @State private var gameTime = false // включена игра на время
     @State private var gameMusic = false
     
-    @State private var gameTimeStandBy = false
-    @State private var gameMusicStandBy = false
+    @State private var gameTimeStandBy = true
+    @State private var gameMusicStandBy = true
     
     @State private var gameLimit = 0 // текуший выбор пользователя по продолжительности игры
     @State private var currentMusic = "" // текуший выбор музыки
@@ -116,7 +116,7 @@ struct SettingsGameView: View {
                                             
                                             
                                             VStack() {
-                                                DisclosureGroup( isExpanded: $gameTime) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameTime) как понравится команде так и оставим.
+                                                DisclosureGroup( isExpanded: $gameTimeStandBy) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameTime) как понравится команде так и оставим.
                                                     VStack( spacing: 0) {
                                                         
                                                         Divider()
@@ -212,7 +212,7 @@ struct SettingsGameView: View {
                                                 .frame(width: 308)
                                             
                                             VStack() {
-                                                DisclosureGroup( isExpanded: $gameMusic) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameMusic) как понравится команде так и оставим.
+                                                DisclosureGroup( isExpanded: $gameMusicStandBy) { // либо сделать зависимым от св-ва Свитча и будет открыт всегда когда включен таймер , заменить на (gameMusic) как понравится команде так и оставим.
                                                     VStack( spacing: 0) {
                                                         
                                                         Divider()
