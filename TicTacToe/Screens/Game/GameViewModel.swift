@@ -8,7 +8,6 @@
 import SwiftUI
 
 final class GameViewModel: ObservableObject {
-    @StateObject private var timerViewModel = TimerViewModel()
     
     enum WinPattern: String, CaseIterable {
         case win012 = "0,1,2"
@@ -58,9 +57,7 @@ final class GameViewModel: ObservableObject {
     @Published var moves: [Move?] = Array(repeating: nil, count: 9)
     @Published var isGameboardDisabled = false
     @Published var statusGame: StatusGame?
-    @Published var isFinishedGame = false {
-        didSet { timerViewModel.pauseTimer() }
-    }
+    @Published var isFinishedGame = false
     @Published var currentPlayer: Player = .human
     @Published var winPattern: WinPattern?
     private var changingIndex: Int = -1

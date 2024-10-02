@@ -32,13 +32,13 @@ struct DifficultLevel: View {
                     }
                     
                     NavigationLink(destination: GameView()
-                        .environmentObject(GameViewModel(gameWithComputer: false))
+                        .environmentObject(GameViewModel(gameWithComputer: true))
                     ){
                         SelectGameButtton(text: "Standart")
                     }
                         .padding()
                     NavigationLink(destination: GameView()
-                        .environmentObject(GameViewModel(gameWithComputer: false))
+                        .environmentObject(GameViewModel(gameWithComputer: true))
                     ) {
                         SelectGameButtton(text: "Easy")
                     }
