@@ -8,7 +8,7 @@
 import SwiftUI
 
 final class LeaderboardViewModel: ObservableObject {
-    @Published var leaders: [Int] = []
+    @Published var leaders: [Int] = (UserDefaults.standard.array(forKey: "leaderboard") ?? []) as! [Int]
     
     private var setLeaders: Set<Int> = []
     
@@ -16,10 +16,14 @@ final class LeaderboardViewModel: ObservableObject {
         guard let newTime,
               let allTime else { return }
         let leaderTime = allTime - newTime
+        setLeaders = Set(leaders)
         setLeaders.insert(leaderTime)
         let resultLeader = Array(setLeaders).sorted(by: <)
         DispatchQueue.main.async {
                self.leaders = resultLeader
            }
+        UserDefaults.standard.setValue(leaders, forKey: "leaderboard")
     }
 }
+
+
