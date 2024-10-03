@@ -12,10 +12,16 @@ final class SettingsViewModel: ObservableObject {
     @Published var timer: TimerTime?
     @Published var isOnTimer = false
     @Published var selectedSkins: (Image,Image) = (Constants.Skins.xSkin1, Constants.Skins.oSkin1)
-    
-    @Published var time30 = false
-    @Published var time60 = false
-    @Published var time120 = false
+    @Published var currentSkin: Int?
+    @Published var currentMusic: String?
+    @Published var isOnMusic: Bool = false
+    @Published var classicMusic = false
+    @Published var instrumentalMusic = false
+    @Published var natureMusic = false
+    @Published var limit30 = false
+    @Published var limit60 = false
+    @Published var limit120 = false
+    @Published var gameLimit = 0
     
     //MARK: - Method's
     func isOnTimer(_ isOn: Bool) {
