@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct OnbordingView: View {
+    @State private var isAnimating = false
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -40,9 +42,13 @@ struct OnbordingView: View {
                     Constants.Skins.xSkin1
                         .resizable()
                         .frame(width: 108, height: 107)
+                        .scaleEffect(isAnimating ? 0.9 : 1.1)
+                        .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: isAnimating)
                     Constants.Skins.oSkin1
                         .resizable()
                         .frame(width: 136, height: 135)
+                        .scaleEffect(isAnimating ? 1.1 : 0.9)
+                        .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: isAnimating)
                 }
                 .padding(.bottom, 20)
                 
@@ -61,6 +67,9 @@ struct OnbordingView: View {
                 }
             }
             .background(Color.white.ignoresSafeArea())
+            .onAppear(perform: {
+                isAnimating = true
+            })
         }
     }
 }
