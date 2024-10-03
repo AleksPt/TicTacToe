@@ -13,6 +13,7 @@ struct GameView: View {
     @EnvironmentObject private var timerViewModel: TimerViewModel
     @EnvironmentObject private var settingsViewModel: SettingsViewModel
     @EnvironmentObject private var leaderboardVM: LeaderboardViewModel
+    @Binding var activateRootLink: Bool
     
     var body: some View {
         ZStack {
@@ -50,6 +51,7 @@ struct GameView: View {
             onDismiss: resetGame
         ) {
             ResultView(
+                activateRootLink: $activateRootLink,
                 text: viewModel.statusGame?.title ?? "",
                 image: viewModel.statusGame?.image ?? Constants.Icons.win
             )
@@ -129,6 +131,6 @@ struct GameView: View {
 }
 
 #Preview {
-    GameView()
+    GameView(activateRootLink: .constant(false))
         .environmentObject(GameViewModel(gameWithComputer: true))
 }

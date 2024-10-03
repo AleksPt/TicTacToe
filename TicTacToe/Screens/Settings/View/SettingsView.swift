@@ -12,7 +12,6 @@ struct PickShape: View {
     let playerIcons: [String]
     
     var body: some View {
-        
         ZStack {
             RoundedRectangle(cornerRadius: 30)
                 .frame(width: 152, height: 150)
@@ -24,17 +23,17 @@ struct PickShape: View {
                         .frame(width: 54, height: 53, alignment: .leading)
                 }
             }
-            .offset(y: -30) // ~
+            .offset(y: -30)
             
-                ZStack()  {
-                    RoundedRectangle(cornerRadius: 30)
-                        .frame(width: 112, height: 39)
-                        .foregroundStyle(picked ? Color.appBlue : Color.appLightBlue)
-                    Text( picked ? "Picked" : "Choose")
-                        .tint(Color.black)
-                        .font(.system(size: 16))
-                }
-                .offset(y: 30)
+            ZStack {
+                RoundedRectangle(cornerRadius: 30)
+                    .frame(width: 112, height: 39)
+                    .foregroundStyle(picked ? Color.appBlue : Color.appLightBlue)
+                Text( picked ? "Picked" : "Choose")
+                    .tint(picked ? Color.white : Constants.Colors.black)
+                    .font(.system(size: 16).bold())
+            }
+            .offset(y: 30)
         }
     }
 }
@@ -86,40 +85,40 @@ struct SettingsGameView: View {
                    GridItem(.fixed(152)) ]
     
     var body: some View {
-        NavigationView{
-            ZStack {
-                Color.appBackground
-                    .ignoresSafeArea()
-                ScrollView(showsIndicators: false) {
-                    VStack {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 30)
-                                .foregroundStyle(.white)
-                            VStack {
-                                DisclosureGroupDuration
-                                DisclosureGroupMusic
-                            }
+        ZStack {
+            Color.appBackground.ignoresSafeArea()
+            ScrollView(showsIndicators: false) {
+                VStack {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 30)
+                            .foregroundStyle(.white)
+                        VStack {
+                            DisclosureGroupDuration
+                            DisclosureGroupMusic
                         }
-                        .frame(width:348)
                     }
-                    GridsView
+                    .padding(.top, 40)
+                    .frame(width:348)
+                }
+                GridsView
+            }
+        }
+        .shadow(color: Color(red: 0.6, green: 0.62, blue: 0.76).opacity(0.3), radius: 15, x: 4, y: 4)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image("backIcon")
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image("backIcon")
-                    }
-                }
-                
-                ToolbarItem(placement: .principal) {
-                    Text("Settings")
-                        .font(.title).fontWeight(.bold)
-                }
+            
+            ToolbarItem(placement: .principal) {
+                Text("Settings")
+                    .font(.title).fontWeight(.bold)
             }
-        }.navigationBarBackButtonHidden(true)
+        }
+        .navigationBarBackButtonHidden(true)
     }
     
     var DisclosureGroupDuration: some View {
@@ -328,6 +327,7 @@ struct SettingsGameView: View {
                     } ) {
                         PickShape(picked: currentIcons == number ? true : false, playerIcons: icons[number])
                     }
+                    .shadow(color: Color(red: 0.6, green: 0.62, blue: 0.76).opacity(0.1), radius: 15, x: 4, y: 4)
                 }
             }
         }
@@ -359,4 +359,7 @@ struct SettingsGameView: View {
 
 #Preview {
     SettingsGameView()
+        .environmentObject(SettingsViewModel())
+        .environmentObject(TimerViewModel())
+        .environmentObject(AudioService())
 }

@@ -35,6 +35,7 @@ struct ResultViewButton: View {
 struct ResultView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var timerViewModel: TimerViewModel
+    @Binding var activateRootLink: Bool
     
     let text: String
     let image: Image
@@ -66,8 +67,8 @@ struct ResultView: View {
     }
     
     func returnToOnbourding() {
-        // TODO: 
-        // back to onboarding view
+        activateRootLink = false
+        dismiss()
     }
     
     func playAgain() {
@@ -79,5 +80,9 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView(text: "Win", image: Constants.Icons.win)
+    ResultView(
+        activateRootLink: .constant(false),
+        text: "Win",
+        image: Constants.Icons.win
+    )
 }
