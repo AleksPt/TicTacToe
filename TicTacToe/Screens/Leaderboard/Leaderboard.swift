@@ -14,7 +14,7 @@ struct Leaderboard: View {
     @State private var leaders: [Leader] = [] /*[Leader(time: "10:15"), Leader(time: "10:16"), Leader(time: "10:17"), Leader(time: "10:18"), Leader(time: "10:19")]*/
     
     var body: some View {
-        NavigationView {
+        VStack {
             if leaderboardVM.leaders.isEmpty {
                 VStack {
                     Text("No game history\nwith turn on time")
@@ -24,7 +24,6 @@ struct Leaderboard: View {
             } else {
                 LeadersView(leaders: leaderboardVM.leaders)
             }
-            
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
