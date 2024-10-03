@@ -81,7 +81,7 @@ struct GameView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 30)
                 .fill(.white)
-                .shadow(color: Constants.Colors.blue.opacity(0.3), radius: 15)
+                .shadow(color: Color(red: 0.6, green: 0.62, blue: 0.76).opacity(0.3), radius: 15, x: 4, y: 4)
             
             GeometryReader { geometry in
                 let width = geometry.size.width
@@ -91,7 +91,7 @@ struct GameView: View {
                         ForEach(0..<9) { item in
                             ZStack {
                                 GameSquareView(proxy: geometry)
-                                PlayerIndicator(image: viewModel.moves[item]?.indicator)
+                                    PlayerIndicator(image: viewModel.moves[item]?.indicator)
                             }
                             .onTapGesture {
                                 viewModel.processPlayerMove(for: item)
@@ -122,7 +122,10 @@ struct GameView: View {
     private func finishGame() -> Bool {
         if viewModel.winPattern != nil {
             timerViewModel.pauseTimer()
-            leaderboardVM.addLeader(timerViewModel.time)
+            leaderboardVM.addLeader(
+                allTime: timerViewModel.timeValue,
+                newTime: timerViewModel.time
+            )
            return true
         } else {
             return false
@@ -133,4 +136,6 @@ struct GameView: View {
 #Preview {
     GameView(activateRootLink: .constant(false))
         .environmentObject(GameViewModel(gameWithComputer: true))
+        .environmentObject(TimerViewModel())
+        .environmentObject(SettingsViewModel())
 }

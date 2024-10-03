@@ -71,7 +71,9 @@ final class GameViewModel: ObservableObject {
         if isSquareOccupied(in: moves, index: position) { return }
         changingIndex = position
         
-        moves[position] = Move(player: currentPlayer, boardIndex: position)
+        withAnimation {
+            moves[position] = Move(player: currentPlayer, boardIndex: position)
+        }
         
         if checkWinCondition(for: currentPlayer, in: moves) {
             statusGame = currentPlayer == .human ? .win : .winPlayerTwo
@@ -98,7 +100,10 @@ final class GameViewModel: ObservableObject {
             let computerMovePosition = determineComputerMovePosition(in: moves)
             changingIndex = computerMovePosition
             
-            moves[computerMovePosition] = Move(player: currentPlayer, boardIndex: computerMovePosition)
+            withAnimation { [weak self] in
+                guard let self else { return }
+                moves[computerMovePosition] = Move(player: currentPlayer, boardIndex: computerMovePosition)
+            }
             
             if checkWinCondition(for: currentPlayer, in: moves) {
                 statusGame = .lose
@@ -196,7 +201,7 @@ final class GameViewModel: ObservableObject {
     }
         
     private func finishedGame() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.isFinishedGame = true
         }
     }

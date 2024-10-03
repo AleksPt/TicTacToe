@@ -12,8 +12,10 @@ final class LeaderboardViewModel: ObservableObject {
     
     private var setLeaders: Set<Int> = []
     
-    func addLeader(_ leaderTime: Int?) {
-        guard let leaderTime else { return }
+    func addLeader(allTime: Int?, newTime: Int?) {
+        guard let newTime,
+              let allTime else { return }
+        let leaderTime = allTime - newTime
         setLeaders.insert(leaderTime)
         let resultLeader = Array(setLeaders).sorted(by: <)
         DispatchQueue.main.async {
