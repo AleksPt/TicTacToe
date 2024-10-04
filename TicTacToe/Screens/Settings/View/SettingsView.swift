@@ -33,7 +33,6 @@ extension View {
 }
 
 struct PickShape: View {
-    let picked: Bool
     let playerIcons: [String]
     
     var body: some View {
@@ -326,7 +325,7 @@ struct SettingsGameView: View {
                 ForEach(0..<6){ number in
                     
                     ZStack{
-                    PickShape(picked: fetchSelectedSkinsIndex() == number ? true : false, playerIcons: icons[number])
+                    PickShape(playerIcons: icons[number])
                         Button(action: {  withAnimation(.spring(duration:0.75, bounce: 0.3)) {
                             degressAnim += 360
                             settingsViewModel.currentSkin = number
