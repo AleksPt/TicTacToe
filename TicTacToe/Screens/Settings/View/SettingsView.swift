@@ -343,6 +343,7 @@ struct SettingsGameView: View {
             let firstImage = Image(firstSkin)
             let secondImage = Image(secondSkin)
             settingsViewModel.selectedSkins = (firstImage, secondImage)
+            settingsViewModel.saveSkinsIntoUD(skin1: firstSkin, skin2: secondSkin)
         }
     }
     

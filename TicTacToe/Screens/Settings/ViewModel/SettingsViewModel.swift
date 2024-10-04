@@ -11,8 +11,15 @@ final class SettingsViewModel: ObservableObject {
     //MARK: - Property
     @Published var timer: TimerTime?
     @Published var isOnTimer = false
-    @Published var selectedSkins: (Image,Image) = (Constants.Skins.xSkin1, Constants.Skins.oSkin1)
-    @Published var currentSkin: Int?
+    @Published var selectedSkins: (Image,Image) = (
+        Image(UserDefaults.standard.string(forKey: "skin1") ?? "Xskin1"),
+        Image(UserDefaults.standard.string(forKey: "skin2") ?? "Oskin1")
+    )
+    @Published var currentSkin: Int? = UserDefaults.standard.integer(forKey: "currentSkin") {
+        didSet {
+            UserDefaults.standard.setValue(currentSkin, forKey: "currentSkin")
+        }
+    }
     @Published var currentMusic: String?
     @Published var isOnMusic: Bool = false
     @Published var classicMusic = false
@@ -34,5 +41,10 @@ final class SettingsViewModel: ObservableObject {
     
     func selectSkins(_ skins: ScinsPlayrs){
         selectedSkins = skins.skins
+    }
+    
+    func saveSkinsIntoUD(skin1: String, skin2: String) {
+        UserDefaults.standard.setValue(skin1, forKey: "skin1")
+        UserDefaults.standard.setValue(skin2, forKey: "skin2")
     }
 }
