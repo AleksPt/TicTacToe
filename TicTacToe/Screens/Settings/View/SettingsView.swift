@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PickShape: View {
-    let picked: Bool
+    
     let playerIcons: [String]
     
     var body: some View {
@@ -25,15 +25,6 @@ struct PickShape: View {
             }
             .offset(y: -30)
             
-            ZStack {
-                RoundedRectangle(cornerRadius: 30)
-                    .frame(width: 112, height: 39)
-                    .foregroundStyle(picked ? Color.appBlue : Color.appLightBlue)
-                Text( picked ? "Picked" : "Choose")
-                    .tint(picked ? Color.white : Constants.Colors.black)
-                    .font(.system(size: 16).bold())
-            }
-            .offset(y: 30)
         }
     }
 }
@@ -304,21 +295,34 @@ struct SettingsGameView: View {
         VStack() {
             LazyVGrid(columns: layout, spacing: 20) {
                 ForEach(0..<6){ number in
-                    Button(action: {
-                        settingsViewModel.currentSkin = number
-                        saveSkins(
-                            firstSkin: icons[number].first,
-                            secondSkin: icons[number].last
-                        )
-                    } ) {
-                        PickShape(picked: fetchSelectedSkinsIndex() == number ? true : false, playerIcons: icons[number])
+                    ZStack {
+                        PickShape(playerIcons: icons[number])
+                        Button(action: {
+                                settingsViewModel.currentSkin = number
+                                saveSkins(
+                                    firstSkin: icons[number].first,
+                                    secondSkin: icons[number].last
+                                )
+                        } ) {
+                            ZStack {
+                            RoundedRectangle(cornerRadius: 30)
+                                .frame(width: 112, height: 39)
+                                .foregroundStyle(fetchSelectedSkinsIndex() == number ? Color.appBlue : Color.appLightBlue)
+                            Text( fetchSelectedSkinsIndex() == number ? "Picked" : "Choose")
+                                .tint(fetchSelectedSkinsIndex() == number ? Color.white : Constants.Colors.black)
+                                .font(.system(size: 16).bold())
+                        }
+                            
+                        }.padding(.top,70)
+                        .shadow(color: Color(red: 0.6, green: 0.62, blue: 0.76).opacity(0.1), radius: 15, x: 4, y: 4)
                     }
-                    .shadow(color: Color(red: 0.6, green: 0.62, blue: 0.76).opacity(0.1), radius: 15, x: 4, y: 4)
                 }
             }
         }
         .frame(width: 324, height: 490)
         .padding(.top,40)
+        .padding(.bottom, 123)
+        
     }
     
     private func checkDuration(limits: Bool... )-> Bool {
