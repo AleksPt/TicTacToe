@@ -21,13 +21,17 @@ struct GameView: View {
             VStack {
                 HeaderView()
                     .environmentObject(timerViewModel)
-                .padding(.horizontal, 30)
-                .padding(.top, 122)
-                
+                    .padding(.horizontal, 30)
+                    .padding(.top, 122)
                 TurnStatus
-                
                 GameSquare
-                
+                Spacer()
+                Button("Reset") {
+                    viewModel.resetGame()
+                    timerViewModel.resetTimer()
+                }
+                .buttonStyle(.bordered)
+                .tint(.pink)
                 Spacer()
             }
         }

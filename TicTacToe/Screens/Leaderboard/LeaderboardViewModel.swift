@@ -24,6 +24,11 @@ final class LeaderboardViewModel: ObservableObject {
            }
         UserDefaults.standard.setValue(leaders, forKey: "leaderboard")
     }
+    
+    func clearHistory() {
+        leaders = []
+        UserDefaults.standard.removeObject(forKey: "leaderboard")
+    }
 }
 
 
