@@ -48,8 +48,7 @@ struct PickShape: View {
                         .frame(width: 54, height: 53, alignment: .leading)
                 }
             }
-            .offset(y: -55)
-            .offset(y: 30)
+            .offset(y: -30)
         }
     }
 }
@@ -346,7 +345,6 @@ struct SettingsGameView: View {
                             }.offset(y:35)
                         }
                         .rotation3DEffect(.degrees(fetchSelectedSkinsIndex() == number ? degressAnim : 0), axis: (x: 0, y: 1, z: 0))
-                     // fetchSelectedSkinsIndex() == number ? degressAnim : 0)
                     }
                     .shadow(color: Color(red: 0.6, green: 0.62, blue: 0.76).opacity(0.1), radius: 15, x: 4, y: 4)
                     .setAnimation(varl: varl)
