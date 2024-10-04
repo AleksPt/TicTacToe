@@ -7,6 +7,31 @@
 
 import SwiftUI
 
+struct BindEffect: ViewModifier {
+    let varl: Double
+    
+    func body(content: Content) -> some View {
+        content
+            .overlay(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .stroke(.appBlue)
+                                        .scaleEffect(varl - 0.35)
+                                        .opacity(2 - varl)
+                                        .animation(
+                                            .easeOut(duration: 0.8)
+                                         .delay(0.1),
+                                         value: varl
+                                           ))
+                                
+    }
+}
+
+extension View {
+    func setAnimation(varl: Double) -> some View {
+        modifier(BindEffect(varl: varl))
+    }
+}
+
 struct PickShape: View {
     let picked: Bool
     let playerIcons: [String]
@@ -23,16 +48,7 @@ struct PickShape: View {
                         .frame(width: 54, height: 53, alignment: .leading)
                 }
             }
-            .offset(y: -30)
-            
-            ZStack {
-                RoundedRectangle(cornerRadius: 30)
-                    .frame(width: 112, height: 39)
-                    .foregroundStyle(picked ? Color.appBlue : Color.appLightBlue)
-                Text( picked ? "Picked" : "Choose")
-                    .tint(picked ? Color.white : Constants.Colors.black)
-                    .font(.system(size: 16).bold())
-            }
+            .offset(y: -55)
             .offset(y: 30)
         }
     }
@@ -64,6 +80,10 @@ struct SettingsGameView: View {
     
     @State private var gameTimeStandBy = true
     @State private var gameMusicStandBy = true
+    
+    @State private var varl = 1.0
+    @State private var degressAnim = 0.0
+    @State private var index = 0
                     
     let icons = [ ["Xskin1","Oskin1" ], ["Xskin2","Oskin2"], ["Xskin3","Oskin3"], ["Xskin4","Oskin4"],["Xskin5","Oskin5"], ["Xskin6","Oskin6"] ]
     
@@ -216,7 +236,8 @@ struct SettingsGameView: View {
                 }
                 .tint(Color.appBlue)
                 .padding(20)
-            }.frame(width:308, height: 69)
+            }
+            .frame(width:308, height: 69)
                 .padding(.bottom,20)
             
             
@@ -304,16 +325,35 @@ struct SettingsGameView: View {
         VStack() {
             LazyVGrid(columns: layout, spacing: 20) {
                 ForEach(0..<6){ number in
-                    Button(action: {
-                        settingsViewModel.currentSkin = number
-                        saveSkins(
-                            firstSkin: icons[number].first,
-                            secondSkin: icons[number].last
-                        )
-                    } ) {
-                        PickShape(picked: fetchSelectedSkinsIndex() == number ? true : false, playerIcons: icons[number])
+                    
+                    ZStack{
+                    PickShape(picked: fetchSelectedSkinsIndex() == number ? true : false, playerIcons: icons[number])
+                        Button(action: {  withAnimation(.spring(duration:0.75, bounce: 0.3)) {
+                            degressAnim += 360
+                            settingsViewModel.currentSkin = number
+                            saveSkins(
+                                firstSkin: icons[number].first,
+                                secondSkin: icons[number].last
+                            )}
+                        }) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 30)
+                                    .frame(width: 112, height: 39)
+                                    .foregroundStyle(fetchSelectedSkinsIndex() == number ? Color.appBlue : Color.appLightBlue)
+                                Text( fetchSelectedSkinsIndex() == number ? "Picked" : "Choose")
+                                    .tint(fetchSelectedSkinsIndex() == number ? Color.white : Constants.Colors.black)
+                                    .font(.system(size: 16).bold())
+                            }.offset(y:35)
+                        }
+                        .rotation3DEffect(.degrees(fetchSelectedSkinsIndex() == number ? degressAnim : 0), axis: (x: 0, y: 1, z: 0))
+                     // fetchSelectedSkinsIndex() == number ? degressAnim : 0)
                     }
                     .shadow(color: Color(red: 0.6, green: 0.62, blue: 0.76).opacity(0.1), radius: 15, x: 4, y: 4)
+                    .setAnimation(varl: varl)
+                     .onAppear {
+                         varl = 2
+                     }
+                    
                 }
             }
         }
