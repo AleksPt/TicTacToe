@@ -15,6 +15,8 @@ struct Move {
     let player: Player
     let boardIndex: Int
     var indicator: Image {
-        player == .human ? Constants.Skins.xSkin1 : Constants.Skins.oSkin1
+        player == .human
+            ? Image(UserDefaults.standard.string(forKey: "skin1") ?? "Xskin1")
+            : Image(UserDefaults.standard.string(forKey: "skin2") ?? "Oskin1")
     }
 }
