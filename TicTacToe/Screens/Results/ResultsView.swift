@@ -69,6 +69,7 @@ struct ResultView: View {
     func returnToOnbourding() {
         activateRootLink = false
         dismiss()
+        NotificationCenter.default.post(name:. statusGameNil, object: nil, userInfo: nil)
     }
     
     func playAgain() {
@@ -76,6 +77,7 @@ struct ResultView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             timerViewModel.startTimer()
         }
+        NotificationCenter.default.post(name:. statusGameNil, object: nil, userInfo: nil)
     }
 }
 

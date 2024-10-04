@@ -65,6 +65,22 @@ final class GameViewModel: ObservableObject {
     
     init(gameWithComputer: Bool) {
         self.gameWithComputer = gameWithComputer
+        NotificationCenter.default.addObserver(self, selector: #selector(timeOut), name: .timeOut, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(statusGameNil), name: .statusGameNil, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc private func timeOut() {
+        statusGame = .draw
+        isFinishedGame = true
+    }
+    
+    @objc private func statusGameNil() {
+        statusGame = nil
+        isFinishedGame = false
     }
     
     func processPlayerMove(for position: Int) {

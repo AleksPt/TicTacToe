@@ -137,16 +137,31 @@ struct SettingsGameView: View {
                                 Divider()
                                     .background(Color.appBlue)
                                 
+                                Toggle(isOn: $settingsViewModel.limit5) {
+                                    Text("5 sec")
+                                        .setToogleText()
+                                } .onChange(of: settingsViewModel.limit5, perform:  { _ in
+                                    if settingsViewModel.limit5 {
+                                        settingsViewModel.inputTimer(.thirty)
+                                        settingsViewModel.gameLimit = 5
+                                        timerViewModel.timeValue = settingsViewModel.gameLimit
+                                        settingsViewModel.limit30 = false
+                                        settingsViewModel.limit60 = false
+                                    }
+                                })
+                                .background(settingsViewModel.limit5 ? Color.appPurple : .clear)
+                                .toggleStyle(.button)
+                                
                                 Toggle(isOn: $settingsViewModel.limit30) {
                                     Text("30 sec")
                                         .setToogleText()
-                                } .onChange(of: settingsViewModel.limit30, perform:  { _ in
+                                }.onChange(of: settingsViewModel.limit30, perform:  { _ in
                                     if settingsViewModel.limit30 {
-                                        settingsViewModel.inputTimer(.thirty)
+                                        settingsViewModel.inputTimer(.sixty)
                                         settingsViewModel.gameLimit = 30
                                         timerViewModel.timeValue = settingsViewModel.gameLimit
+                                        settingsViewModel.limit5 = false
                                         settingsViewModel.limit60 = false
-                                        settingsViewModel.limit120 = false
                                     }
                                 })
                                 .background(settingsViewModel.limit30 ? Color.appPurple : .clear)
@@ -155,31 +170,16 @@ struct SettingsGameView: View {
                                 Toggle(isOn: $settingsViewModel.limit60) {
                                     Text("60 sec")
                                         .setToogleText()
-                                }.onChange(of: settingsViewModel.limit60, perform:  { _ in
+                                }.onChange(of: settingsViewModel.limit60, perform: { _ in
                                     if settingsViewModel.limit60 {
-                                        settingsViewModel.inputTimer(.sixty)
+                                        settingsViewModel.inputTimer(.oneHundredTwenty)
                                         settingsViewModel.gameLimit = 60
                                         timerViewModel.timeValue = settingsViewModel.gameLimit
                                         settingsViewModel.limit30 = false
-                                        settingsViewModel.limit120 = false
+                                        settingsViewModel.limit5 = false
                                     }
                                 })
                                 .background(settingsViewModel.limit60 ? Color.appPurple : .clear)
-                                .toggleStyle(.button)
-                                
-                                Toggle(isOn: $settingsViewModel.limit120) {
-                                    Text("120 sec")
-                                        .setToogleText()
-                                }.onChange(of: settingsViewModel.limit120, perform: { _ in
-                                    if settingsViewModel.limit120 {
-                                        settingsViewModel.inputTimer(.oneHundredTwenty)
-                                        settingsViewModel.gameLimit = 120
-                                        timerViewModel.timeValue = settingsViewModel.gameLimit
-                                        settingsViewModel.limit60 = false
-                                        settingsViewModel.limit30 = false
-                                    }
-                                })
-                                .background(settingsViewModel.limit120 ? Color.appPurple : .clear)
                                 .toggleStyle(.button)
                                 .padding(.bottom, 25)
                                 
@@ -192,7 +192,7 @@ struct SettingsGameView: View {
                                     .padding(.leading,20)
                                     .frame(height: 61)
                                 Spacer()
-                                Text(checkDuration(limits: settingsViewModel.limit30, settingsViewModel.limit60, settingsViewModel.limit120) ? "\(String(settingsViewModel.gameLimit)) sec" : " ")
+                                Text(checkDuration(limits: settingsViewModel.limit5, settingsViewModel.limit30, settingsViewModel.limit60) ? "\(String(settingsViewModel.gameLimit)) sec" : " ")
                                     .tint(Color.black)
                                     .font(.system(size: 20))
                             }

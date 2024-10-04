@@ -35,6 +35,7 @@
 		FA7A7B5A2CAC8DFF00B1B6F0 /* LinePointsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A7B592CAC8DFF00B1B6F0 /* LinePointsModel.swift */; };
 		FA7A7B5E2CAD774300B1B6F0 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A7B5D2CAD774300B1B6F0 /* TimerViewModel.swift */; };
 		FA7A7B602CADECEC00B1B6F0 /* LeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A7B5F2CADECEB00B1B6F0 /* LeaderboardViewModel.swift */; };
+		FA7A7B682CB00FA300B1B6F0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A7B672CB00FA300B1B6F0 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		FA7A7B592CAC8DFF00B1B6F0 /* LinePointsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinePointsModel.swift; sourceTree = "<group>"; };
 		FA7A7B5D2CAD774300B1B6F0 /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
 		FA7A7B5F2CADECEB00B1B6F0 /* LeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewModel.swift; sourceTree = "<group>"; };
+		FA7A7B672CB00FA300B1B6F0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 				FA4B55E82CAAE5360084DC1B /* Screens */,
 				840761182CADAB0400EA4ACE /* Services  */,
 				FA4B55D82CA9A4C20084DC1B /* Constants.swift */,
+				FA7A7B672CB00FA300B1B6F0 /* Extensions.swift */,
 				FA4B55CE2CA99F420084DC1B /* Assets.xcassets */,
 				FA4B55D02CA99F420084DC1B /* Preview Content */,
 			);
@@ -354,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C07C5972CAC4DAA00E9710E /* SettingsView.swift in Sources */,
+				FA7A7B682CB00FA300B1B6F0 /* Extensions.swift in Sources */,
 				2F2E5D692CAD519300AA15B5 /* DifficultLevel.swift in Sources */,
 				6CF14F642CAAC15900B03C44 /* HowToPlayView.swift in Sources */,
 				84110FBE2CAC77FB004D61B8 /* SettingsModel.swift in Sources */,
