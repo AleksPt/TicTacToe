@@ -10,8 +10,6 @@ import SwiftUI
 struct Leaderboard: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject private var leaderboardVM: LeaderboardViewModel
-    @State private var isPresented: Bool = false
-    @State private var leaders: [Leader] = [] /*[Leader(time: "10:15"), Leader(time: "10:16"), Leader(time: "10:17"), Leader(time: "10:18"), Leader(time: "10:19")]*/
     
     var body: some View {
         VStack {
@@ -31,12 +29,22 @@ struct Leaderboard: View {
                     .font(.title).fontWeight(.bold)
             }
             
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .topBarLeading) {
                 Button {
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image("backIcon")
                 }
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Reset") {
+                    withAnimation {
+                        leaderboardVM.leaders = []
+                        leaderboardVM.clearHistory()                        
+                    }
+                }
+                .tint(.pink)
             }
         }
         .navigationBarBackButtonHidden(true)
