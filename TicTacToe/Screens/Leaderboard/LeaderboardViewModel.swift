@@ -8,7 +8,7 @@
 import SwiftUI
 
 final class LeaderboardViewModel: ObservableObject {
-    @Published var leaders: [Int] = (UserDefaults.standard.array(forKey: "leaderboard") ?? []) as! [Int]
+    @Published var leaders: [Int] = (UserDefaults.standard.array(forKey: Constants.KeysUD.leaderboard) ?? []) as! [Int]
     
     private var setLeaders: Set<Int> = []
     
@@ -22,12 +22,12 @@ final class LeaderboardViewModel: ObservableObject {
         DispatchQueue.main.async {
                self.leaders = resultLeader
            }
-        UserDefaults.standard.setValue(leaders, forKey: "leaderboard")
+        UserDefaults.standard.setValue(leaders, forKey: Constants.KeysUD.leaderboard)
     }
     
     func clearHistory() {
         leaders = []
-        UserDefaults.standard.removeObject(forKey: "leaderboard")
+        UserDefaults.standard.removeObject(forKey: Constants.KeysUD.leaderboard)
     }
 }
 

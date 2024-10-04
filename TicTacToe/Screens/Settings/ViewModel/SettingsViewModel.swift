@@ -10,25 +10,28 @@ import SwiftUI
 final class SettingsViewModel: ObservableObject {
     //MARK: - Property
     @Published var timer: TimerTime?
-    @Published var isOnTimer = false
+    @AppStorage(Constants.KeysUD.isOnTimer) var isOnTimer = false
     @Published var selectedSkins: (Image,Image) = (
-        Image(UserDefaults.standard.string(forKey: "skin1") ?? "Xskin1"),
-        Image(UserDefaults.standard.string(forKey: "skin2") ?? "Oskin1")
+        Image(UserDefaults.standard.string(forKey: Constants.KeysUD.skin1) ?? "Xskin1"),
+        Image(UserDefaults.standard.string(forKey: Constants.KeysUD.skin2) ?? "Oskin1")
     )
-    @Published var currentSkin: Int? = UserDefaults.standard.integer(forKey: "currentSkin") {
+    
+    @AppStorage(Constants.KeysUD.currentSkin) var currentSkin: Int?
+    @AppStorage(Constants.KeysUD.currentMusic) var currentMusic: String?
+    @AppStorage(Constants.KeysUD.isOnMusic) var isOnMusic: Bool = false
+    
+    @AppStorage(Constants.KeysUD.classicMusic) var classicMusic = false
+    @AppStorage(Constants.KeysUD.instrumentalMusic) var instrumentalMusic = false
+    @AppStorage(Constants.KeysUD.natureMusic) var natureMusic = false
+    @AppStorage(Constants.KeysUD.limit5) var limit5 = false
+    @AppStorage(Constants.KeysUD.limit30) var limit30 = false
+    @AppStorage(Constants.KeysUD.limit60) var limit60 = false
+//    @AppStorage(Constants.KeysUD.gameLimit) var gameLimit = 0
+    @Published var gameLimit = UserDefaults.standard.integer(forKey: Constants.KeysUD.gameLimit) {
         didSet {
-            UserDefaults.standard.setValue(currentSkin, forKey: "currentSkin")
+            UserDefaults.standard.set(gameLimit, forKey: Constants.KeysUD.gameLimit)
         }
     }
-    @Published var currentMusic: String?
-    @Published var isOnMusic: Bool = false
-    @Published var classicMusic = false
-    @Published var instrumentalMusic = false
-    @Published var natureMusic = false
-    @Published var limit5 = false
-    @Published var limit30 = false
-    @Published var limit60 = false
-    @Published var gameLimit = 0
     
     //MARK: - Method's
     func isOnTimer(_ isOn: Bool) {
@@ -44,7 +47,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func saveSkinsIntoUD(skin1: String, skin2: String) {
-        UserDefaults.standard.setValue(skin1, forKey: "skin1")
-        UserDefaults.standard.setValue(skin2, forKey: "skin2")
+        UserDefaults.standard.setValue(skin1, forKey: Constants.KeysUD.skin1)
+        UserDefaults.standard.setValue(skin2, forKey: Constants.KeysUD.skin2)
     }
 }
