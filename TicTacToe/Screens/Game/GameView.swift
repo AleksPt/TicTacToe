@@ -120,11 +120,15 @@ struct GameView: View {
     }
     
     private func finishGame() -> Bool {
+        if viewModel.statusGame == .draw {
+            timerViewModel.pauseTimer()
+        }
         if viewModel.winPattern != nil {
             timerViewModel.pauseTimer()
+            guard let time = timerViewModel.time, time != 0 else { return true }
             leaderboardVM.addLeader(
                 allTime: timerViewModel.timeValue,
-                newTime: timerViewModel.time
+                newTime: time
             )
            return true
         } else {

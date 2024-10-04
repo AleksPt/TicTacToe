@@ -18,9 +18,9 @@ final class SettingsViewModel: ObservableObject {
     @Published var classicMusic = false
     @Published var instrumentalMusic = false
     @Published var natureMusic = false
+    @Published var limit5 = false
     @Published var limit30 = false
     @Published var limit60 = false
-    @Published var limit120 = false
     @Published var gameLimit = 0
     
     //MARK: - Method's

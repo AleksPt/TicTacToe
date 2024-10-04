@@ -25,6 +25,7 @@ class TimerViewModel: ObservableObject {
             .sink { _ in
                 if self.time == 0 {
                     self.pauseTimer()
+                    NotificationCenter.default.post(name: .timeOut, object: nil, userInfo: nil)
                 } else {
                     withAnimation {
                         self.time! -= 1
