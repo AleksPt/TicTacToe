@@ -102,7 +102,7 @@ struct SettingsGameView: View {
         VStack {
             ZStack { RoundedRectangle(cornerRadius: 30)
                     .foregroundStyle(Color.appLightBlue)
-                Toggle(isOn: $settingsViewModel.isOnTimer) {
+                Toggle(isOn: $settingsViewModel.isOnTimer.animation(.bouncy)) {
                     Text("Game Time")
                         .font(.system(size: 20).bold())
                 }.onChange(of: settingsViewModel.isOnTimer, perform: { value in
@@ -201,7 +201,7 @@ struct SettingsGameView: View {
         VStack {
             ZStack { RoundedRectangle(cornerRadius: 30)
                     .foregroundStyle(Color.appLightBlue)
-                Toggle(isOn: $settingsViewModel.isOnMusic) {
+                Toggle(isOn: $settingsViewModel.isOnMusic.animation(.bouncy)) {
                     Text("Music")
                         .font(.system(size: 20).bold())
                 }
