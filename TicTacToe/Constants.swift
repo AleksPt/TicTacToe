@@ -8,6 +8,23 @@
 import SwiftUI
 
 enum Constants {
+    enum KeysUD {
+        static let skin1 = "skin1"
+        static let skin2 = "skin2"
+        static let leaderboard = "leaderboard"
+        static let currentSkin = "currentSkin"
+        static let currentMusic = "currentMusic"
+        static let isOnMusic = "isOnMusic"
+        static let isOnTimer = "isOnTimer"
+        static let classicMusic = "classicMusic"
+        static let instrumentalMusic = "instrumentalMusic"
+        static let natureMusic = "natureMusic"
+        static let limit5 = "limit5"
+        static let limit30 = "limit30"
+        static let limit60 = "limit60"
+        static let gameLimit = "gameLimit"
+    }
+    
     enum Colors {
         static let background = Color(.appBackground)
         static let lightBlue = Color(.appLightBlue)

@@ -16,7 +16,7 @@ struct Move {
     let boardIndex: Int
     var indicator: Image {
         player == .human
-            ? Image(UserDefaults.standard.string(forKey: "skin1") ?? "Xskin1")
-            : Image(UserDefaults.standard.string(forKey: "skin2") ?? "Oskin1")
+            ? Image(UserDefaults.standard.string(forKey: Constants.KeysUD.skin1) ?? "Xskin1")
+            : Image(UserDefaults.standard.string(forKey: Constants.KeysUD.skin2) ?? "Oskin1")
     }
 }
