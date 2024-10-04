@@ -312,8 +312,8 @@ struct SettingsGameView: View {
                                 .tint(fetchSelectedSkinsIndex() == number ? Color.white : Constants.Colors.black)
                                 .font(.system(size: 16).bold())
                         }
-                        .offset(y: 35)
-                        }
+                            
+                        }.padding(.top,70)
                         .shadow(color: Color(red: 0.6, green: 0.62, blue: 0.76).opacity(0.1), radius: 15, x: 4, y: 4)
                     }
                 }
@@ -321,7 +321,7 @@ struct SettingsGameView: View {
         }
         .frame(width: 324, height: 490)
         .padding(.top,40)
-        .padding(.bottom,123)
+        .padding(.bottom, 123)
         
     }
     
