@@ -24,7 +24,7 @@ final class SettingsViewModel: ObservableObject {
         }
     }
     
-    @AppStorage(Constants.KeysUD.classicMusic) var classicMusic = false {
+    @AppStorage(Constants.KeysUD.classicMusic) var classicMusic = true {
         didSet {
             NotificationCenter.default.post(name: .musicSettingsChanged, object: nil, userInfo: ["classicMusic": classicMusic])
         }

@@ -36,6 +36,7 @@ struct ResultView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var timerViewModel: TimerViewModel
     @EnvironmentObject private var settingsViewModel: SettingsViewModel
+    @EnvironmentObject private var audioService: AudioService
     @Binding var activateRootLink: Bool
     
     let text: String
@@ -68,6 +69,7 @@ struct ResultView: View {
     }
     
     func returnToOnbourding() {
+        audioService.stop()
         activateRootLink = false
         dismiss()
         NotificationCenter.default.post(name:. statusGameNil, object: nil, userInfo: nil)

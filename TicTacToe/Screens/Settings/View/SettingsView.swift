@@ -48,6 +48,7 @@ extension View {
 struct SettingsGameView: View {
     @EnvironmentObject private var settingsViewModel: SettingsViewModel
     @EnvironmentObject private var timerViewModel: TimerViewModel
+    @EnvironmentObject private var audioService: AudioService
     
     @Environment(\.presentationMode) var presentationMode
     @State private var gameTime = false
@@ -85,6 +86,7 @@ struct SettingsGameView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
+                    audioService.stop()
                 }) {
                     Image("backIcon")
                 }
@@ -248,7 +250,7 @@ struct SettingsGameView: View {
                                         .tint(.black)
                                 }.onChange(of: settingsViewModel.instrumentalMusic, perform:  { _ in
                                     if settingsViewModel.instrumentalMusic {
-                                        settingsViewModel.currentMusic = "Instrumental"
+                                        settingsViewModel.currentMusic = "Instrumentals"
                                         settingsViewModel.classicMusic = false
                                         settingsViewModel.natureMusic = false
                                     }

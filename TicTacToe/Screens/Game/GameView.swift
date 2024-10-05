@@ -13,6 +13,7 @@ struct GameView: View {
     @EnvironmentObject private var timerViewModel: TimerViewModel
     @EnvironmentObject private var settingsViewModel: SettingsViewModel
     @EnvironmentObject private var leaderboardVM: LeaderboardViewModel
+    @EnvironmentObject private var audioService: AudioService
     @Binding var activateRootLink: Bool
     
     var body: some View {
@@ -40,11 +41,10 @@ struct GameView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
-                    presentationMode.wrappedValue.dismiss()
+                    activateRootLink = false
                     timerViewModel.pauseTimer()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        resetGame()
-                    }
+                    resetGame()
+                    audioService.stop()
                 }, label: {
                     Constants.Icons.back
                 })
@@ -60,10 +60,14 @@ struct GameView: View {
                 image: viewModel.statusGame?.image ?? Constants.Icons.win
             )
         }
+
         .onAppear(perform: {
             if settingsViewModel.isOnTimer {
                 timerViewModel.startTimer()
             }
+            
+            guard let selectedMusic = audioService.selectedMusic else { return }
+            audioService.playSound(soundFileName: selectedMusic.rawValue)
         })
     }
     

@@ -10,6 +10,8 @@ import SwiftUI
 struct Leaderboard: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject private var leaderboardVM: LeaderboardViewModel
+    @State private var offset: CGFloat = 25
+
     
     var body: some View {
         VStack {
@@ -18,6 +20,13 @@ struct Leaderboard: View {
                     Text("No game history\nwith turn on time")
                         .font(.system(size: 20))
                     Constants.Backgrounds.emptyLeaderboard
+                        .offset(y: offset)
+                        .animation(Animation.easeInOut(duration: 1)
+                            .repeatForever(autoreverses: true), value: offset)
+                        .onAppear {
+                            offset = 20
+                        }
+
                 }
             } else {
                 LeadersView(leaders: leaderboardVM.leaders)
@@ -38,13 +47,15 @@ struct Leaderboard: View {
             }
             
             ToolbarItem(placement: .topBarTrailing) {
-                Button("Reset") {
-                    withAnimation {
-                        leaderboardVM.leaders = []
-                        leaderboardVM.clearHistory()                        
+                if !leaderboardVM.leaders.isEmpty {
+                    Button("Reset") {
+                        withAnimation {
+                            leaderboardVM.leaders = []
+                            leaderboardVM.clearHistory()
+                        }
                     }
+                    .tint(.pink)
                 }
-                .tint(.pink)
             }
         }
         .navigationBarBackButtonHidden(true)
