@@ -129,7 +129,7 @@ struct GameView: View {
         }
         if viewModel.winPattern != nil {
             timerViewModel.pauseTimer()
-            guard let time = timerViewModel.time, time != 0 else { return true }
+            guard let time = timerViewModel.time, time != 0, settingsViewModel.isOnTimer else { return true }
             leaderboardVM.addLeader(
                 allTime: timerViewModel.timeValue,
                 newTime: time

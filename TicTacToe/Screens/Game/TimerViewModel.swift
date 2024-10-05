@@ -10,12 +10,12 @@ import Combine
 
 class TimerViewModel: ObservableObject {
     
-    var timeValue: Int? {
+    var timeValue: Int? = UserDefaults.standard.integer(forKey: Constants.KeysUD.gameLimit) {
         didSet {
             time = timeValue
         }
     }
-    @Published var time: Int?
+    @Published var time: Int? = UserDefaults.standard.integer(forKey: Constants.KeysUD.gameLimit)
     var timer: AnyCancellable?
     
     func startTimer() {
