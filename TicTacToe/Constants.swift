@@ -65,4 +65,10 @@ enum Constants {
     enum Backgrounds {
         static let emptyLeaderboard = Image(.emptyLeaderboard)
     }
+    
+    enum Music:String {
+        case classical = "Classical"
+        case instrumentals = "Instrumentals"
+        case nature = "Nature"
+    }
 }
