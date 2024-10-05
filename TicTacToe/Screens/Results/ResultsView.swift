@@ -74,8 +74,10 @@ struct ResultView: View {
     
     func playAgain() {
         dismiss()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            timerViewModel.startTimer()
+        if timerViewModel.timeValue != 0 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                timerViewModel.startTimer()
+            }
         }
         NotificationCenter.default.post(name:. statusGameNil, object: nil, userInfo: nil)
     }
