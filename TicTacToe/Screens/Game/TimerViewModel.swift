@@ -47,6 +47,8 @@ class TimerViewModel: ObservableObject {
     func resetTimer() {
         pauseTimer()
         time = timeValue
-        startTimer()
+        if timeValue != 0 {
+            startTimer()
+        }
     }
 }
