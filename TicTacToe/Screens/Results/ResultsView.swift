@@ -35,6 +35,7 @@ struct ResultViewButton: View {
 struct ResultView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var timerViewModel: TimerViewModel
+    @EnvironmentObject private var settingsViewModel: SettingsViewModel
     @Binding var activateRootLink: Bool
     
     let text: String
@@ -74,7 +75,7 @@ struct ResultView: View {
     
     func playAgain() {
         dismiss()
-        if timerViewModel.timeValue != 0 {
+        if settingsViewModel.isOnTimer {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 timerViewModel.startTimer()
             }
