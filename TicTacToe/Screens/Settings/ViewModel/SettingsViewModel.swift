@@ -18,11 +18,30 @@ final class SettingsViewModel: ObservableObject {
     
     @AppStorage(Constants.KeysUD.currentSkin) var currentSkin: Int?
     @AppStorage(Constants.KeysUD.currentMusic) var currentMusic: String?
-    @AppStorage(Constants.KeysUD.isOnMusic) var isOnMusic: Bool = false
+    @AppStorage(Constants.KeysUD.isOnMusic) var isOnMusic: Bool = false {
+        didSet {
+            NotificationCenter.default.post(name: .musicSettingsChanged, object: nil, userInfo: ["isOnMusic": isOnMusic])
+        }
+    }
     
-    @AppStorage(Constants.KeysUD.classicMusic) var classicMusic = false
-    @AppStorage(Constants.KeysUD.instrumentalMusic) var instrumentalMusic = false
-    @AppStorage(Constants.KeysUD.natureMusic) var natureMusic = false
+    @AppStorage(Constants.KeysUD.classicMusic) var classicMusic = false {
+        didSet {
+            NotificationCenter.default.post(name: .musicSettingsChanged, object: nil, userInfo: ["classicMusic": classicMusic])
+        }
+    }
+    
+    @AppStorage(Constants.KeysUD.instrumentalMusic) var instrumentalMusic = false {
+        didSet {
+            NotificationCenter.default.post(name: .musicSettingsChanged, object: nil, userInfo: ["instrumentalMusic": instrumentalMusic])
+        }
+    }
+    
+    @AppStorage(Constants.KeysUD.natureMusic) var natureMusic = false {
+        didSet {
+            NotificationCenter.default.post(name: .musicSettingsChanged, object: nil, userInfo: ["natureMusic": natureMusic])
+        }
+    }
+    
     @AppStorage(Constants.KeysUD.limit5) var limit5 = false
     @AppStorage(Constants.KeysUD.limit30) var limit30 = false
     @AppStorage(Constants.KeysUD.limit60) var limit60 = false
