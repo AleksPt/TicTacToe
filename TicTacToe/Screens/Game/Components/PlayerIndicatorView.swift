@@ -15,6 +15,7 @@ struct PlayerIndicator: View {
         if image != nil {
             image!
             .resizable()
+            .scaledToFit()
             .frame(width: 40, height: 40)
             .foregroundColor(.white)
         }

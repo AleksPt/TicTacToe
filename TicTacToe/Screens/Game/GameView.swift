@@ -80,7 +80,9 @@ struct GameView: View {
                 .padding(.bottom, 44)
                 .padding(.top, 55)
                 .offset(y: -4)
+                
         }
+        .animation(.bouncy, value: viewModel.currentPlayer)
     }
     
     var GameSquare: some View {
