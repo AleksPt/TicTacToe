@@ -9,13 +9,13 @@ import AVFoundation
 import SwiftUI
 
 final class AudioService: ObservableObject {
-    @Published var isPlaySound: Bool = false
+    @Published var isPlaySound: Bool = UserDefaults.standard.bool(forKey: Constants.KeysUD.isOnMusic)
     private var audioPlayer: AVAudioPlayer?
-    private var selectedMusic: Constants.Music? = nil
+    @Published var selectedMusic: Constants.Music? = .classical
     
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleMusicSettingsChanged(notification:)), name: .musicSettingsChanged, object: nil)
-        loadInitialSettings()
+//        loadInitialSettings()
     }
     
     deinit {
@@ -71,7 +71,8 @@ final class AudioService: ObservableObject {
         }
     }
     
-    private func playSound(soundFileName: String) {
+    func playSound(soundFileName: String) {
+        guard isPlaySound else { return }
         guard let url = Bundle.main.url(forResource: soundFileName, withExtension: "mp3") else { return }
         
         do {
